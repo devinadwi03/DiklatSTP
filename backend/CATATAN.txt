@@ -17,6 +17,9 @@
 (DONE) * Buat logika untuk memastikan emailnya benar ada
 (DONE) * Buat logika agar data pendaftar dikirim ke drive admin 
 (DONE) * Rapikan hasil pdf nya
-* Implementasikan validation data untuk daftar diklat
+(DONE) * Implementasikan validation data untuk daftar diklat
 (DONE) * Buat logika otomatis logout ketika sudah lebih dari 30 menit tidak ada kegiatan dari user 
+* Buat data diklat hanya bisa dilihat oleh pemiliknya
+* Buat fungsi edit data diklat yang mengupload ulang hasil pdf nya
+* Buat agar yang bisa edit data diklat adalah pemilik data dan admin
 * Buat data spreedsheet nya kalo keburu
