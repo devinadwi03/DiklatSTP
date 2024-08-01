@@ -55,3 +55,13 @@ export const uploadToGoogleDrive = async (pdfBytes, fileName) => {
         throw error;
     }
 };
+export const deleteFileFromGoogleDrive = async (fileId) => {
+    try {
+        await drive.files.delete({
+            fileId: fileId
+        });
+    } catch (error) {
+        console.error(`Error deleting file from Google Drive: ${error.message}`);
+        throw error;
+    }
+};

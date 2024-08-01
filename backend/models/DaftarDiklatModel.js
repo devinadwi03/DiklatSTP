@@ -89,6 +89,10 @@ const DaftarDiklat = db.define('DaftarDiklat', {
     tau_diklat_dari_lainnya: {
         type: DataTypes.STRING,
         allowNull: true
+    },
+    fileId: {
+        type: DataTypes.STRING,
+        allowNull: true
     }
 }, {
     freezeTableName: true,
