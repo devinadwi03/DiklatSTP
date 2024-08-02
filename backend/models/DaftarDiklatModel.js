@@ -7,7 +7,6 @@ const { DataTypes } = Sequelize;
 const DaftarDiklat = db.define('DaftarDiklat', {
     id: {
         type: DataTypes.INTEGER,
-        autoIncrement: true,
         primaryKey: true
     },
     id_user: {
@@ -32,8 +31,7 @@ const DaftarDiklat = db.define('DaftarDiklat', {
     },
     nik: {
         type: DataTypes.STRING,
-        allowNull: false,
-        unique: true
+        allowNull: false
     },
     usia: {
         type: DataTypes.INTEGER,

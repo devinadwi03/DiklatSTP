@@ -1,3 +1,4 @@
+import { Op } from 'sequelize';
 import DaftarDiklat from '../models/DaftarDiklatModel.js';
 import User from "../models/UserModel.js";
 import { dataValid } from "../validation/dataValidation.js";
@@ -6,19 +7,8 @@ import { uploadToGoogleDrive, deleteFileFromGoogleDrive } from '../services/goog
 
 export const getPendaftar = async (req, res) => {
     try {
-        const user = await User.findOne({ where: { id: req.user.userId } });
-        
-        if (user.role === "admin") {
-            // Admin can see all records
-            const response = await DaftarDiklat.findAll();
-            res.status(200).json(response);
-        } else {
-            // Regular user can only see their own records
-            const response = await DaftarDiklat.findAll({
-                where: { id_user: req.user.userId }
-            });
-            res.status(200).json(response);
-        }
+        const response = await DaftarDiklat.findAll();
+        res.status(200).json(response);
     } catch (error) {
         console.error(`Error fetching pendaftar: ${error.message}`);
         res.status(500).json({ error: error.message });
@@ -27,11 +17,9 @@ export const getPendaftar = async (req, res) => {
 
 export const getPendaftarById = async (req, res) => {
     try {
-        const user = await User.findOne({ where: { id: req.user.userId } });
         const response = await DaftarDiklat.findOne({
             where: {
-                id: req.params.id,
-                [user.role === "admin" ? Op.not : Op.and]: { id_user: req.user.userId }
+                id: req.params.id
             }
         });
         if (!response) {
@@ -91,7 +79,8 @@ export const createRegistrasi = async (req, res) => {
 
         // Prepare data for registration
         const registrationData = {
-            id_user: idUserInt,
+            id: req.user.userId,
+            id_user: req.user.userId,
             nama: data.nama,
             tempat_lahir: data.tempat_lahir,
             tanggal_lahir: formattedTanggalLahir,
@@ -109,6 +98,8 @@ export const createRegistrasi = async (req, res) => {
             tau_diklat_dari: data.tau_diklat_dari,
             tau_diklat_dari_lainnya: data.tau_diklat_dari_lainnya || null
         };
+
+        console.log("Registration Data:", registrationData);
 
         // Create new registration record
         const newRegistration = await DaftarDiklat.create(registrationData);
@@ -131,7 +122,7 @@ export const createRegistrasi = async (req, res) => {
 export const updateRegistrasi = async (req, res) => {
     const { id } = req.params;
     const {
-        id_user, nama, tempat_lahir, tanggal_lahir, nik, usia, jenis_kelamin,
+        nama, tempat_lahir, tanggal_lahir, nik, usia, jenis_kelamin,
         status, alamat_rumah, asal_sekolah_instansi, no_wa_aktif,
         no_telepon_orang_tua, jalur_pendaftaran, jalur_pendaftaran_lainnya,
         jenis_diklat, tau_diklat_dari, tau_diklat_dari_lainnya
@@ -144,9 +135,10 @@ export const updateRegistrasi = async (req, res) => {
         return res.status(400).json({ errors: message });
     }
 
+    console.log("Validated Data:", data);
+
     try {
-        // Convert id_user and usia to integer if provided
-        const idUserInt = parseInt(data.id_user, 10);
+        // Convert usia to integer if provided
         const usiaInt = parseInt(data.usia, 10);
 
         // Convert jenis_diklat to array if needed
@@ -158,7 +150,6 @@ export const updateRegistrasi = async (req, res) => {
 
         // Prepare update data
         const updateData = {
-            id_user: idUserInt,
             nama: data.nama,
             tempat_lahir: data.tempat_lahir,
             tanggal_lahir: formattedTanggalLahir,
@@ -177,6 +168,8 @@ export const updateRegistrasi = async (req, res) => {
             tau_diklat_dari_lainnya: data.tau_diklat_dari_lainnya || null
         };
 
+        console.log("Update Data:", updateData);
+
         // Remove undefined properties
         for (const key in updateData) {
             if (updateData[key] === undefined) {
@@ -184,8 +177,8 @@ export const updateRegistrasi = async (req, res) => {
             }
         }
 
-        // Find existing registration to get the current fileId
-        const existingRegistration = await DaftarDiklat.findOne({ where: { id, id_user: req.user.userId } });
+        // Find existing registration to get the current fileId and current nik
+        const existingRegistration = await DaftarDiklat.findOne({ where: { id_user: req.user.userId } });
 
         if (!existingRegistration) {
             return res.status(404).json({ msg: "Data Pendaftaran tidak ditemukan atau Anda tidak memiliki akses" });
@@ -214,7 +207,7 @@ export const updateRegistrasi = async (req, res) => {
         const newFileId = await uploadToGoogleDrive(pdfBytes, fileName);
 
         // Update the fileId in the registration record
-        await DaftarDiklat.update({ fileId: newFileId }, { where: { id } });
+        await DaftarDiklat.update({ fileId: newFileId }, { where: { id, id_user: req.user.userId } });
 
         res.status(200).json({ msg: "Data Pendaftaran berhasil diubah!" });
     } catch (error) {
@@ -222,7 +215,6 @@ export const updateRegistrasi = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
-
 
 export const deleteRegistrasi = async (req, res) => {
     try {

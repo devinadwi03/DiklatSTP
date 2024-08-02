@@ -1,18 +1,20 @@
 import { google } from 'googleapis';
-import fs from 'fs';
 import { Readable } from 'stream';
 
 const drive = google.drive('v3');
 
+const getAuthClient = async () => {
+    const auth = new google.auth.GoogleAuth({
+        keyFile: './services/diklatstp-service-account-file.json', // Pastikan file ini ada dan benar
+        scopes: ['https://www.googleapis.com/auth/drive.file']
+    });
+
+    return await auth.getClient();
+};
+
 export const uploadToGoogleDrive = async (pdfBytes, fileName) => {
     try {
-        // Konfigurasi autentikasi
-        const auth = new google.auth.GoogleAuth({
-            keyFile: './services/diklatstp-service-account-file.json', // Pastikan file ini ada dan benar
-            scopes: ['https://www.googleapis.com/auth/drive.file']
-        });
-
-        const authClient = await auth.getClient();
+        const authClient = await getAuthClient();
         google.options({ auth: authClient });
 
         const fileMetadata = {
@@ -20,16 +22,14 @@ export const uploadToGoogleDrive = async (pdfBytes, fileName) => {
             parents: ['1ajm9GVBbEjoG4A5eLR-K_67aoG4KHi4y'] // ID folder Google Drive
         };
 
-        // Memastikan pdfBytes adalah buffer
         if (!Buffer.isBuffer(pdfBytes)) {
             throw new Error('pdfBytes harus berupa buffer.');
         }
 
-        // Mengubah buffer menjadi stream
         const bufferStream = new Readable();
-        bufferStream._read = () => {}; // Implementasi metode _read
+        bufferStream._read = () => {};
         bufferStream.push(pdfBytes);
-        bufferStream.push(null); // Menandakan akhir dari stream
+        bufferStream.push(null);
 
         const media = {
             mimeType: 'application/pdf',
@@ -55,8 +55,12 @@ export const uploadToGoogleDrive = async (pdfBytes, fileName) => {
         throw error;
     }
 };
+
 export const deleteFileFromGoogleDrive = async (fileId) => {
     try {
+        const authClient = await getAuthClient();
+        google.options({ auth: authClient });
+
         await drive.files.delete({
             fileId: fileId
         });

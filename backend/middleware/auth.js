@@ -30,7 +30,7 @@ export const isUserOrAdmin = async (req, res, next) => {
             return res.status(404).json({ msg: "Pengguna tidak ditemukan" });
         }
 
-        if (user.role === "admin" || user.id === parseInt(req.params.id)) {
+        if (user.role === "admin" || user.id === userId) {
             next();
         } else {
             return res.status(403).json({ msg: "Akses terlarang" });
