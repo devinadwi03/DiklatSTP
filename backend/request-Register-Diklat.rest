@@ -5,7 +5,7 @@ GET http://localhost:5000/daftar-diklat
 Authorization: Bearer 
 
 ### Tampilkan data tabel daftardiklat berdasarkan id
-GET http://localhost:5000/daftar-diklat/4
+GET http://localhost:5000/daftar-diklat/44
 Authorization: Bearer 
 
 ### Menambahkan data ke tabel daftardiklat

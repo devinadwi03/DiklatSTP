@@ -17,9 +17,10 @@ export const getPendaftar = async (req, res) => {
 
 export const getPendaftarById = async (req, res) => {
     try {
+        const userId = req.user.userId;
         const response = await DaftarDiklat.findOne({
             where: {
-                id: req.params.id
+                id: userId
             }
         });
         if (!response) {
