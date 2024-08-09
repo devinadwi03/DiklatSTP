@@ -1,23 +1,34 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { CommonModule } from '@angular/common'; // Import CommonModule
+import { Component, inject } from '@angular/core';
+import { Router, RouterOutlet } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-layout',
   standalone: true,
   imports: [CommonModule, RouterOutlet],
   templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.css'] // Perbaiki 'styleUrl' menjadi 'styleUrls'
+  styleUrls: ['./layout.component.css']
 })
 export class LayoutComponent {
-  title = 'angular-18-lagi';
   isLogin = true; // Contoh status login
-  isAdmin = false; // Contoh status admin
 
-  // Tambahkan metode logout
+  authService = inject(AuthService);
+  router = inject(Router);
+
   logout() {
-    this.isLogin = false; // Mengubah status login
-    // Logika lain yang diperlukan untuk logout, seperti menghapus token, dll.
-    console.log("User logged out");
+    this.authService.logout().subscribe(
+      () => {
+        this.isLogin = false; // Mengubah status login
+        
+        // Redirect ke halaman login
+        this.router.navigateByUrl('login');
+        // Logika lain yang diperlukan untuk logout, seperti menghapus token dari cookie, dll.
+        console.log("User logged out");
+      },
+      (error) => {
+        console.error('Logout failed', error);
+      }
+    );
   }
 }

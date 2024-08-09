@@ -289,7 +289,7 @@ export const Login = async (req, res) => {
         const email = user.email;
         
         const accessToken = jwt.sign({ userId, username, email }, process.env.ACCESS_TOKEN_SECRET, {
-            expiresIn: '50s' // Pertimbangkan untuk memperpanjang durasi ini
+            expiresIn: '5m' // Pertimbangkan untuk memperpanjang durasi ini
         });
 
         const refreshToken = jwt.sign({ userId, username, email }, process.env.REFRESH_TOKEN_SECRET, {
@@ -308,6 +308,12 @@ export const Login = async (req, res) => {
             }
         });
 
+        // Kirimkan access token dan refresh token dalam cookie
+        res.cookie('accessToken', accessToken, {
+            httpOnly: true,
+            maxAge: 5 * 60 * 1000 // Masa berlaku access token
+        });
+
         // Kirimkan token refresh dalam cookie
         res.cookie('refreshToken', refreshToken, {
             httpOnly: true,
@@ -316,6 +322,7 @@ export const Login = async (req, res) => {
 
         // Kirimkan token akses sebagai respons
         res.json({ accessToken });
+        console.log("Login Success");
     } catch (error) {
         console.error("Login error:", error.message);
         res.status(500).json({ msg: "Terjadi kesalahan pada server" });
@@ -348,7 +355,9 @@ export const Logout = async (req, res) => {
 
     // Menghapus cookie refresh token
     res.clearCookie('refreshToken');
+    res.clearCookie('accessToken');
     res.status(200).json({ msg: "Berhasil logout" });
+    console.log("Logout Success");
 };
 
 // Fungsi untuk meminta reset password

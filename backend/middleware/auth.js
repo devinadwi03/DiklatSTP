@@ -2,16 +2,17 @@ import jwt from "jsonwebtoken";
 import User from "../models/UserModel.js";
 
 export const verifyToken = (req, res, next) => {
-    const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1];
-    if (token == null) return res.sendStatus(401);
+    const token = req.cookies.accessToken; // Mengambil token dari cookies
+
+    if (token == null) return res.sendStatus(401); // Jika tidak ada token, kirim status 401 Unauthorized
 
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
-        if (err) return res.sendStatus(403);
-        req.user = decoded;
-        next();
+        if (err) return res.sendStatus(403); // Jika token tidak valid, kirim status 403 Forbidden
+        req.user = decoded; // Simpan data user dari token ke req.user
+        next(); // Lanjutkan ke middleware berikutnya
     });
 };
+
 
 export const adminOnly = async (req, res, next) => {
     const user = await User.findOne({ where: { id: req.user.userId } });

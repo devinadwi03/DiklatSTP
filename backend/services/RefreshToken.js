@@ -13,7 +13,7 @@ export const refreshToken = async (req, res) => {
         if (err) return res.sendStatus(403);
 
         const newAccessToken = jwt.sign({ userId: decoded.userId, username: decoded.username, email: decoded.email }, process.env.ACCESS_TOKEN_SECRET, {
-            expiresIn: '50s'
+            expiresIn: '5m'
         });
 
         res.json({ accessToken: newAccessToken });
