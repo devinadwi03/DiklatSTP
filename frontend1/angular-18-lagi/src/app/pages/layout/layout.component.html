@@ -1,25 +1,38 @@
-<nav class = "navbar navbar-expand-sm navbar-dark bg-dark">
+<style>
+    .text-white {
+      color: #fff !important;
+    }
+    .navbar {
+      background-color: #BF0A30; /* Warna navbar yang baru */
+    }
+    .navbar-nav .nav-link {
+      color: #fff !important;
+    }
+    .logout-btn {
+      background-color: #fff; /* Warna tombol logout menjadi putih */
+      color: #BF0A30; /* Warna teks pada tombol logout menjadi sesuai dengan navbar */
+    }
+    .navbar-brand {
+      margin-left: auto; /* Menggunakan margin-left untuk memindahkan ke kanan */
+      margin-right: 20px; /* Tambahkan margin kanan untuk jarak lebih jauh */
+    }
+  </style>
+  
+  <nav class="navbar navbar-expand-lg text-white" *ngIf="isLogin">
     <div class="container-fluid">
-        <a class="navbar-brand" href="javascript:void(0)">logo</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="mynavbar">
-            <ul class="navbar-nav me-auto">
-                <li class="nav-item" style="margin-top:-12px;">
-                    <a class="nav-link active" href="javascript:void(0)">link</a>
-                    </li>
-                <li class="nav-item" style="margin-top:12px;">
-                    <a class="nav-link" href="javascript:void(0)">link</a>
-                </li>
-                <li class="nav-item" style="margin-top:12px;">
-                    <a class="nav-link" href="javascript:void(0)">link</a>
-                </li>
-            </ul>
-            <form class="d-flex">
-                <input class="from-conril me-2" type="text" placeholder="Search">
-                <button class="btn btn-primary" type="button">Search</button>
-            </form>
+      <a class="navbar-brand text-white" routerLink="/">Selamat Datang!</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav text-white ms-auto"> <!-- Mengatur tombol logout ke sebelah kanan -->
+          <button class="btn btn-md logout-btn" (click)="logout()">
+            Log Out
+          </button>
         </div>
+      </div>
     </div>
-</nav>
+  </nav>
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>

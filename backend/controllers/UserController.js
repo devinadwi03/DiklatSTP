@@ -242,6 +242,7 @@ export const deleteUser = async (req, res) => {
 export const Login = async (req, res) => {
     try {
         const { identifier, password } = req.body; // Menggunakan identifier untuk email atau username
+        console.log('Login attempt with:', { identifier, password }); // Log data yang diterima
 
         // Validasi input
         const { message } = await dataValid(

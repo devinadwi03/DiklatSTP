@@ -6,31 +6,31 @@ import { TemplateFormValidationComponent } from './topics/template-form-validati
 import { ReactiveFormValidationComponent } from './topics/reactive-form-validation/reactive-form-validation.component';
 
 export const routes: Routes = [
-    {
-        path:'',
-        redirectTo: 'login',
-        pathMatch: 'full'
-    },
-    {
-        path:'login',
-        component:LoginComponent
-    },
-    {
-        path:'',
-        component:LayoutComponent,
-        children:[
-            {
-                path:'dashboard',
-                component:DashboardComponent
-            }
-        ]
-    },
-    {
-        path: 'templateFormValidation',
-        component:TemplateFormValidationComponent
-    },
-    {
-        path: 'reactiveFormValidation',
-        component:ReactiveFormValidationComponent
-    }
+  {
+    path: '',
+    redirectTo: 'login',
+    pathMatch: 'full'
+  },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
+    path: '',
+    component: LayoutComponent,
+    children: [
+      {
+        path: 'dashboard',
+        component: DashboardComponent
+      }
+    ]
+  },
+  {
+    path: 'templateFormValidation',
+    component: TemplateFormValidationComponent
+  },
+  {
+    path: 'reactiveFormValidation',
+    component: ReactiveFormValidationComponent
+  }
 ];
