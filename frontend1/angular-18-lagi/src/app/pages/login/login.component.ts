@@ -53,9 +53,7 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.value).subscribe(
         response => {
-          // Simpan token atau informasi login lain yang diperlukan
-          localStorage.setItem('authToken', response.token);
-          this.router.navigateByUrl('dashboard');
+          this.router.navigateByUrl('templateFormValidation');
         },
         error => {
           alert('Username atau password salah');

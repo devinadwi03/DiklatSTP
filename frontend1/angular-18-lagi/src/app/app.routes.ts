@@ -3,7 +3,6 @@ import { LoginComponent } from './pages/login/login.component';
 import { LayoutComponent } from './pages/layout/layout.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { TemplateFormValidationComponent } from './topics/template-form-validation/template-form-validation.component';
-import { ReactiveFormValidationComponent } from './topics/reactive-form-validation/reactive-form-validation.component';
 import { AuthGuard } from './guards/auth.guards'; // Sesuaikan path sesuai kebutuhan
 
 export const routes: Routes = [
@@ -19,20 +18,17 @@ export const routes: Routes = [
   {
     path: '',
     component: LayoutComponent,
+    canActivate: [AuthGuard], // Pastikan AuthGuard diterapkan di sini
     children: [
       {
-        path: 'dashboard',
-        component: DashboardComponent
+        path: 'templateFormValidation',
+        component: TemplateFormValidationComponent
+      },
+      {
+        path: '**',
+        redirectTo: 'dashboard' // Rute wildcard untuk menangani rute yang tidak ditemukan
       }
+      // Tambahkan rute anak lainnya di sini
     ]
-  },
-  {
-    path: 'templateFormValidation',
-    component: TemplateFormValidationComponent
-  },
-  { path: '', component: LayoutComponent, canActivate: [AuthGuard] },
-  {
-    path: 'reactiveFormValidation',
-    component: ReactiveFormValidationComponent
   }
 ];

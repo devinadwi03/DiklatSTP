@@ -289,7 +289,7 @@ export const Login = async (req, res) => {
         const email = user.email;
         
         const accessToken = jwt.sign({ userId, username, email }, process.env.ACCESS_TOKEN_SECRET, {
-            expiresIn: '5m' // Pertimbangkan untuk memperpanjang durasi ini
+            expiresIn: '1m' 
         });
 
         const refreshToken = jwt.sign({ userId, username, email }, process.env.REFRESH_TOKEN_SECRET, {
@@ -310,14 +310,20 @@ export const Login = async (req, res) => {
 
         // Kirimkan access token dan refresh token dalam cookie
         res.cookie('accessToken', accessToken, {
-            httpOnly: true,
-            maxAge: 5 * 60 * 1000 // Masa berlaku access token
+            httpOnly: false,
+            maxAge: 1 * 60 * 1000, // Masa berlaku access token
+            secure: false, // Use 'secure' flag in production
+            sameSite: process.env.NODE_ENV === 'production' ? 'Strict' : 'Lax', // Adjust SameSite policy based on your needs
+            path: '/' // Ensure the cookie is accessible throughout your application
         });
 
         // Kirimkan token refresh dalam cookie
         res.cookie('refreshToken', refreshToken, {
-            httpOnly: true,
-            maxAge: 24 * 60 * 60 * 1000
+            httpOnly: false,
+            maxAge: 24 * 60 * 60 * 1000,
+            secure: false, // Use 'secure' flag in production
+            sameSite: process.env.NODE_ENV === 'production' ? 'Strict' : 'Lax', // Adjust SameSite policy based on your needs
+            path: '/' // Ensure the cookie is accessible throughout your application
         });
 
         // Kirimkan token akses sebagai respons

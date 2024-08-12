@@ -1,0 +1,20 @@
+/* mengatur ukuran tulisan untuk this required */
+.small-text {
+    font-size: 0.8rem; 
+  }
+
+.vh-100 {
+    height: 100vh;
+  }
+
+.title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #000; /* Warna hitam */
+    margin-bottom: 2rem; /* Mengurangi jarak bawah */
+  }
+
+.form-container {
+    margin-top: 1rem; /* Mengurangi jarak atas */
+    max-width: 600px; /* Lebar maksimum kolom form */
+  }

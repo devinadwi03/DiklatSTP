@@ -19,7 +19,7 @@ app.use(cors({
   credentials: true, 
   origin: 'http://localhost:4200', 
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Tambahkan POST di sini
-  allowedHeaders: 'Content-Type, Authorization' 
+  allowedHeaders: 'Content-Type,Authorization' 
 }));
 app.use(cookieParser());
 app.use(express.json());
