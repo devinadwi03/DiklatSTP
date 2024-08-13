@@ -19,10 +19,10 @@ export const refreshToken = async (req, res) => {
         res.json({ accessToken: newAccessToken });
         // Kirimkan access token dalam cookie
         res.cookie('accessToken', newAccessToken, {
-            httpOnly: false,
+            httpOnly: true,
             maxAge: 1 * 60 * 1000, // Masa berlaku access token
             secure: false, // Use 'secure' flag in production
-            sameSite: process.env.NODE_ENV === 'production' ? 'Strict' : 'Lax', // Adjust SameSite policy based on your needs
+            sameSite: 'Lax', // Adjust SameSite policy based on your needs
             path: '/' // Ensure the cookie is accessible throughout your application
         });
         console.log('New Token:', newAccessToken);

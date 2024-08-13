@@ -4,32 +4,20 @@ import { Observable, throwError, BehaviorSubject } from 'rxjs';
 import { catchError, filter, switchMap, take } from 'rxjs/operators';
 import { AuthService } from './auth.service';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({
+  providedIn: 'root'
+})
 export class AuthInterceptor implements HttpInterceptor {
   private isRefreshing = false;
-  private refreshTokenSubject = new BehaviorSubject<string | null>(null);
+  private refreshTokenSubject = new BehaviorSubject<any>(null);
 
   constructor(private authService: AuthService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     console.log('Intercepting request to:', req.url);
 
-    const accessToken = this.authService.getToken();
-    
-    // Tambahkan header untuk setiap request
-    let authReq = req.clone({
-      setHeaders: {
-        'Content-Type': 'application/json; charset=utf-8',
-        'Accept': 'application/json',
-        'Authorization': `Bearer ${accessToken}`
-      }
-    });
-
-    if (accessToken) {
-      console.log('Access Token found:', accessToken);
-    } else {
-      console.warn('No Access Token found, sending request without Authorization header');
-    }
+    // Clone the request and add withCredentials to ensure cookies are sent
+    const authReq = req.clone({ withCredentials: true });
 
     return next.handle(authReq).pipe(
       catchError((error: HttpErrorResponse) => {
@@ -44,15 +32,6 @@ export class AuthInterceptor implements HttpInterceptor {
     );
   }
 
-  private addToken(req: HttpRequest<any>, token: string) {
-    console.log('Adding Authorization header:', `Bearer ${token}`);
-    return req.clone({
-      setHeaders: {
-        Authorization: `Bearer ${token}`
-      }
-    });
-  }
-
   private handle401Error(req: HttpRequest<any>, next: HttpHandler) {
     if (!this.isRefreshing) {
       console.log('Refreshing token...');
@@ -62,20 +41,13 @@ export class AuthInterceptor implements HttpInterceptor {
       return this.authService.refreshToken().pipe(
         switchMap((response: any) => {
           this.isRefreshing = false;
-          const newToken = this.authService.getToken();
-          if (newToken) {
-            console.log('Token refresh successful, new token:', newToken);
-            this.refreshTokenSubject.next(newToken);
-            return next.handle(this.addToken(req, newToken));
-          } else {
-            console.error('Token refresh failed, no new token received');
-            return throwError(() => new Error('Failed to get new token'));
-          }
+          this.refreshTokenSubject.next(response.accessToken); // Notify other requests
+          return next.handle(req.clone({ withCredentials: true })); // Retry the original request
         }),
         catchError((err) => {
           this.isRefreshing = false;
           console.error('Error during token refresh:', err);
-          this.authService.logout();
+          this.authService.logout().subscribe(); // Logout on refresh token failure
           return throwError(() => err);
         })
       );
@@ -84,7 +56,7 @@ export class AuthInterceptor implements HttpInterceptor {
       return this.refreshTokenSubject.pipe(
         filter(token => token !== null),
         take(1),
-        switchMap(token => next.handle(this.addToken(req, token!)))
+        switchMap(() => next.handle(req.clone({ withCredentials: true }))) // Retry the original request
       );
     }
   }

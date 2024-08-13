@@ -3,6 +3,7 @@ import User from "../models/UserModel.js";
 
 export const verifyToken = (req, res, next) => {
     const token = req.cookies.accessToken; // Mengambil token dari cookies
+    console.log('AccessToken:', token);
 
     if (token == null) return res.sendStatus(401); // Jika tidak ada token, kirim status 401 Unauthorized
 

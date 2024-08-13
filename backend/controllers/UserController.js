@@ -310,19 +310,19 @@ export const Login = async (req, res) => {
 
         // Kirimkan access token dan refresh token dalam cookie
         res.cookie('accessToken', accessToken, {
-            httpOnly: false,
+            httpOnly: true,
             maxAge: 1 * 60 * 1000, // Masa berlaku access token
             secure: false, // Use 'secure' flag in production
-            sameSite: process.env.NODE_ENV === 'production' ? 'Strict' : 'Lax', // Adjust SameSite policy based on your needs
+            sameSite: 'Lax', // Adjust SameSite policy based on your needs
             path: '/' // Ensure the cookie is accessible throughout your application
         });
 
         // Kirimkan token refresh dalam cookie
         res.cookie('refreshToken', refreshToken, {
-            httpOnly: false,
+            httpOnly: true,
             maxAge: 24 * 60 * 60 * 1000,
             secure: false, // Use 'secure' flag in production
-            sameSite: process.env.NODE_ENV === 'production' ? 'Strict' : 'Lax', // Adjust SameSite policy based on your needs
+            sameSite: 'Lax', // Adjust SameSite policy based on your needs
             path: '/' // Ensure the cookie is accessible throughout your application
         });
 
@@ -337,34 +337,53 @@ export const Login = async (req, res) => {
 
 // Fungsi untuk logout pengguna
 export const Logout = async (req, res) => {
-    const refreshToken = req.cookies.refreshToken;
-    if (!refreshToken) return res.sendStatus(204);
-
-    const user = await User.findOne({
+    try {
+      const refreshToken = req.cookies.refreshToken;
+  
+      // Jika tidak ada refreshToken, tidak perlu melakukan apa-apa
+      if (!refreshToken) {
+        return res.status(204).send(); // 204 No Content
+      }
+  
+      // Cari pengguna berdasarkan refresh token
+      const user = await User.findOne({
         where: {
-            refresh_token: refreshToken
+          refresh_token: refreshToken
         }
-    });
-
-    if (!user) return res.sendStatus(204);
-
-    const userId = user.id;
-    await User.update({
+      });
+  
+      // Jika pengguna tidak ditemukan, tidak perlu melakukan apa-apa
+      if (!user) {
+        return res.status(204).send(); // 204 No Content
+      }
+  
+      const userId = user.id;
+  
+      // Update status pengguna dan hapus refresh token
+      await User.update({
         refresh_token: null,
         status: false,
         last_login: new Date()
-    }, {
+      }, {
         where: {
-            id: userId
+          id: userId
         }
-    });
-
-    // Menghapus cookie refresh token
-    res.clearCookie('refreshToken');
-    res.clearCookie('accessToken');
-    res.status(200).json({ msg: "Berhasil logout" });
-    console.log("Logout Success");
-};
+      });
+  
+      // Menghapus cookie refresh token dan access token
+      res.clearCookie('refreshToken', { httpOnly: true, sameSite: 'Lax', });
+      res.clearCookie('accessToken', { httpOnly: true, sameSite: 'Lax', });
+  
+      // Kirim respons sukses
+      res.status(200).json({ msg: "Berhasil logout" });
+      console.log("Logout Success");
+      
+    } catch (error) {
+      console.error('Error during logout:', error);
+      res.status(500).json({ message: 'Internal Server Error' });
+    }
+  };
+  
 
 // Fungsi untuk meminta reset password
 export const forgotPassword = async (req, res) => {
