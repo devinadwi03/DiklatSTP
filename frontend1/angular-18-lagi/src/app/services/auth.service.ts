@@ -23,8 +23,9 @@ export class AuthService {
 
   // Fungsi untuk logout
   logout(): Observable<any> {
-    const url = `${this.apiUrl}/logout`;
-    return this.http.post(url, {}, { withCredentials: true });
+    return this.http.post<any>(`${this.apiUrl}/logout`, {}, {
+      withCredentials: true // Untuk menyertakan cookies
+    });
   }
 
 

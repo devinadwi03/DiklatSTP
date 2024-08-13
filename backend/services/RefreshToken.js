@@ -16,7 +16,6 @@ export const refreshToken = async (req, res) => {
             expiresIn: '1m'
         });
 
-        res.json({ accessToken: newAccessToken });
         // Kirimkan access token dalam cookie
         res.cookie('accessToken', newAccessToken, {
             httpOnly: true,
@@ -25,6 +24,7 @@ export const refreshToken = async (req, res) => {
             sameSite: 'Lax', // Adjust SameSite policy based on your needs
             path: '/' // Ensure the cookie is accessible throughout your application
         });
+        res.json({ accessToken: newAccessToken });
         console.log('New Token:', newAccessToken);
     });
 };
