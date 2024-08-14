@@ -5,10 +5,14 @@ export const verifyToken = (req, res, next) => {
     const token = req.cookies.accessToken; // Mengambil token dari cookies
     console.log('AccessToken:', token);
 
-    if (token == null) return res.sendStatus(401); // Jika tidak ada token, kirim status 401 Unauthorized
+    if (!token) {
+        return res.status(401).json({ authenticated: false, message: 'Token not provided' });
+    }
 
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
-        if (err) return res.sendStatus(403); // Jika token tidak valid, kirim status 403 Forbidden
+        if (err) {
+            return res.status(401).json({ authenticated: false, message: 'Invalid token' });
+        }
         req.user = decoded; // Simpan data user dari token ke req.user
         next(); // Lanjutkan ke middleware berikutnya
     });

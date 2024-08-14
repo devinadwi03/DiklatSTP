@@ -18,6 +18,9 @@ import { refreshToken } from "../services/RefreshToken.js";
 
 const router = express.Router();
 
+router.get('/check-auth', verifyToken, (req, res) => {
+    res.json({ authenticated: true });
+  });
 router.get('/users', verifyToken, verifyLastActive, adminOnly, getUsers);
 router.get('/users/:id', verifyToken, verifyLastActive, isUserOrAdmin, getUsersById);
 router.post('/register', createUser);

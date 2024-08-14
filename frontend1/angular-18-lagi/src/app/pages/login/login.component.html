@@ -1,65 +1,76 @@
-<section class="vh-100">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-sm-6 text-black">
-        <div class="px-5 ms-xl-4">
-          <i class="fas fa-crow fa-2x me-3 pt-5 mt-xl-4" style="color: #709085;"></i>
-          <span class="h1 fw-bold mb-0">Solo Technopark</span>
-        </div>
+<section class="vh-100" style="background-color: #BA181B;">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col col-xl-10">
+        <div class="card" style="border-radius: 1rem; max-width: 700px; margin: auto;">
+          <div class="row g-0">
+            <div class="col-12 d-flex align-items-center">
+              <div class="card-body p-4 p-lg-5 text-black">
+                <h1 class="fw-bold mb-3 pb-3 text-center" style="letter-spacing: 1px;">Pendaftaran Diklat</h1>
 
-        <div class="d-flex align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
-          <form *ngIf="isLoginView" [formGroup]="loginForm" style="width: 23rem;" (ngSubmit)="onLogin()">
-            <h3 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Masuk</h3>
-            <div data-mdb-input-init class="form-outline mb-4">
-              <label class="form-label" for="identifier">Username atau Email</label>
-              <input formControlName="identifier" type="text" id="identifier" class="form-control form-control-lg" required />
-            </div>
-            <div data-mdb-input-init class="form-outline mb-4">
-              <label class="form-label" for="password">Password</label>
-              <input formControlName="password" type="password" id="password" class="form-control form-control-lg" required />
-            </div>
-            <div class="pt-1 mb-4">
-              <button data-mdb-button-init data-mdb-ripple-init class="btn btn-info btn-lg btn-block" type="submit">Masuk</button>
-            </div>
-            <p>Belum memiliki akun? <a class="link-info" (click)="isLoginView = false">Daftar disini</a></p>
-          </form>
+                <form [formGroup]="isLoginView ? loginForm : registerForm">
+                  <h3 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">{{ isLoginView ? 'Masuk' : 'Daftar' }}</h3>
 
-          <form *ngIf="!isLoginView" [formGroup]="registerForm" style="width: 23rem;" (ngSubmit)="onRegister()">
-            <h3 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Daftar</h3>
-            <div data-mdb-input-init class="form-outline mb-4">
-              <label class="form-label" for="email">Email address</label>
-              <input formControlName="email" type="email" id="email" class="form-control form-control-lg" required />
+                  <!-- Login Form -->
+                  <div *ngIf="isLoginView">
+                    <div class="form-outline mb-4">
+                      <label class="form-label" for="identifier">Username</label>
+                      <input formControlName="identifier" type="text" id="identifier" class="form-control form-control-lg" required/>
+                    </div>
+                    <div class="form-outline mb-4">
+                      <label class="form-label" for="password">Password</label>
+                      <input formControlName="password" type="password" id="password" class="form-control form-control-lg" required/>
+                    </div>
+                    <div class="pt-1 mb-4">
+                      <button (click)="onLogin()" class="btn btn-dark btn-lg btn-block btn-red" type="button">Masuk</button>
+                    </div>
+                    <p class="mb-5 pb-lg-2">Belum memiliki akun? <a href="javascript:void(0);" (click)="isLoginView=false">Daftar disini</a></p>
+                  </div>
+
+                  <!-- Registration Form -->
+                  <div *ngIf="!isLoginView">
+                    <div class="form-outline mb-4">
+                      <label class="form-label" for="email">Email address</label>
+                      <input formControlName="email" type="email" id="email" class="form-control form-control-lg" required/>
+                    </div>
+                    <div class="form-outline mb-4">
+                      <label class="form-label" for="first_name">Nama Depan</label>
+                      <input formControlName="first_name" type="text" id="first_name" class="form-control form-control-lg" required/>
+                    </div>
+                    <div class="form-outline mb-4">
+                      <label class="form-label" for="last_name">Nama Belakang</label>
+                      <input formControlName="last_name" type="text" id="last_name" class="form-control form-control-lg" required/>
+                    </div>
+                    <div class="form-outline mb-4">
+                      <label class="form-label" for="username">Username</label>
+                      <input formControlName="username" type="text" id="username" class="form-control form-control-lg" required/>
+                    </div>
+                    <div class="form-outline mb-4">
+                      <label class="form-label" for="password">Password</label>
+                      <input formControlName="password" type="password" id="password" class="form-control form-control-lg" required/>
+                      <div *ngIf="registerForm.get('password')?.touched && !passwordPattern.test(registerForm.get('password')?.value)" class="text-danger mt-1">
+                        <span class="small-text">Password harus memiliki setidaknya 8 karakter, 1 huruf besar, 1 huruf kecil, 1 angka, dan 1 simbol.</span>
+                      </div>
+                    </div>
+                    <div class="form-outline mb-4">
+                      <label class="form-label" for="confPassword">Konfirmasi Password</label>
+                      <input formControlName="confPassword" type="password" id="confPassword" class="form-control form-control-lg" required/>
+                      <div *ngIf="registerForm.errors?.['passwordMismatch'] && registerForm.get('confPassword')?.touched" class="text-danger mt-1">
+                        <span class="small-text">Password dan konfirmasi password tidak cocok.</span>
+                      </div>
+                    </div>
+                    <div class="pt-1 mb-4">
+                      <button (click)="onRegister()" class="btn btn-dark btn-lg btn-block btn-red" type="button">Daftar</button>
+                    </div>
+                    <p class="mb-5 pb-lg-2">Sudah memiliki akun? <a href="javascript:void(0);" (click)="isLoginView = true">Login disini</a></p>
+                  </div>
+
+                </form>
+
+              </div>
             </div>
-            <div data-mdb-input-init class="form-outline mb-4">
-              <label class="form-label" for="first_name">Nama Depan</label>
-              <input formControlName="first_name" type="text" id="first_name" class="form-control form-control-lg" required />
-            </div>
-            <div data-mdb-input-init class="form-outline mb-4">
-              <label class="form-label" for="last_name">Nama Belakang</label>
-              <input formControlName="last_name" type="text" id="last_name" class="form-control form-control-lg" required />
-            </div>
-            <div data-mdb-input-init class="form-outline mb-4">
-              <label class="form-label" for="username">Username</label>
-              <input formControlName="username" type="text" id="username" class="form-control form-control-lg" required />
-            </div>
-            <div data-mdb-input-init class="form-outline mb-4">
-              <label class="form-label" for="password">Password</label>
-              <input formControlName="password" type="password" id="password" class="form-control form-control-lg" required />
-            </div>
-            <div data-mdb-input-init class="form-outline mb-4">
-              <label class="form-label" for="confPassword">Konfirmasi Password</label>
-              <input formControlName="confPassword" type="password" id="confPassword" class="form-control form-control-lg" required />
-            </div>
-            <div class="pt-1 mb-4">
-              <button data-mdb-button-init data-mdb-ripple-init class="btn btn-info btn-lg btn-block" type="submit">Daftar</button>
-            </div>
-            <p>Sudah memiliki akun? <a class="link-info" (click)="isLoginView = true">Login disini</a></p>
-          </form>
+          </div>
         </div>
-      </div>
-      <div class="col-sm-6 px-0 d-none d-sm-block">
-        <img src="https://solotechnopark.id/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FKawsan-STP-6.f5d0fcf7.png&w=2048&q=75"
-          alt="Login image" class="w-100 vh-100" style="object-fit: cover; object-position: left;">
       </div>
     </div>
   </div>

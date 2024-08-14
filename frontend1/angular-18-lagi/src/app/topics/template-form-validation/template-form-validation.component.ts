@@ -15,7 +15,6 @@ export class TemplateFormValidationComponent {
   isFormSubmited: boolean = false;
 
   userObj: any = {
-    'emailId': '',
     'nama': '',
     'tempat_lahir': '',
     'tanggal_lahir': '',
@@ -26,13 +25,13 @@ export class TemplateFormValidationComponent {
     'alamat_rumah': '',
     'asal_sekolah_instansi': '',
     'no_wa_aktif': '',
-    'no_telpon_orang_tua': '',
+    'no_telepon_orang_tua': '',
     'jalur_pendaftaran': '',
     'jalur_pendaftaran_lainnya': '',
     'jenis_diklat': '',
     'tau_diklat_dari': '',
     'tau_diklat_dari_lainnya': '',
-    'isAgree': false,
+    'isAgree': true,
   }
 
   constructor(private diklatService: DiklatService) {}

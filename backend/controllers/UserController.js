@@ -311,7 +311,7 @@ export const Login = async (req, res) => {
         // Kirimkan access token dan refresh token dalam cookie
         res.cookie('accessToken', accessToken, {
             httpOnly: true,
-            maxAge: 1 * 60 * 1000, // Masa berlaku access token
+            maxAge: 3 * 60 * 1000, // Masa berlaku access token
             secure: false, // Use 'secure' flag in production
             sameSite: 'Lax', // Adjust SameSite policy based on your needs
             path: '/' // Ensure the cookie is accessible throughout your application

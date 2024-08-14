@@ -1,0 +1,19 @@
+.text-danger span {
+    font-size: 0.8rem; 
+  }
+
+  .btn-red {
+    background-color: #BA181B;
+    color: white;
+    border: none;
+  }
+  
+  .btn-red:hover {
+    background-color: #a01616;
+  }
+  
+  .card {
+    position: relative; /* Posisi relative untuk card */
+    z-index: 2; /* Z-index lebih tinggi dari radius */
+    padding: 20px; 
+}

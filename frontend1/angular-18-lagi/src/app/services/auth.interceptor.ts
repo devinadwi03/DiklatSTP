@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError, BehaviorSubject } from 'rxjs';
-import { catchError, filter, switchMap, take } from 'rxjs/operators';
+import { Observable, throwError, BehaviorSubject, tap } from 'rxjs';
+import { catchError, switchMap, filter, take } from 'rxjs/operators';
 import { AuthService } from './auth.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -11,30 +12,28 @@ export class AuthInterceptor implements HttpInterceptor {
   private isRefreshing = false;
   private refreshTokenSubject = new BehaviorSubject<any>(null);
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log('Intercepting request to:', req.url);
-
     // Clone the request and add withCredentials to ensure cookies are sent
     const authReq = req.clone({ withCredentials: true });
 
     return next.handle(authReq).pipe(
       catchError((error: HttpErrorResponse) => {
-        console.error('Request error:', error);
-        if (error.status === 401 && !authReq.url.includes('/login')) {
-          console.warn('Unauthorized request detected. Handling 401 error.');
-          return this.handle401Error(authReq, next);
+        const publicRoutes = ['/login'];
+        if (error.status === 401 && !publicRoutes.some(route => req.url.includes(route))) {
+          // Handle unauthorized requests
+          return this.handle401Error(req, next);
         } else {
+          // Forward other errors
           return throwError(() => error);
         }
       })
     );
   }
 
-  private handle401Error(req: HttpRequest<any>, next: HttpHandler) {
+  private handle401Error(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (!this.isRefreshing) {
-      console.log('Refreshing token...');
       this.isRefreshing = true;
       this.refreshTokenSubject.next(null);
 
@@ -44,15 +43,40 @@ export class AuthInterceptor implements HttpInterceptor {
           this.refreshTokenSubject.next(response.accessToken); // Notify other requests
           return next.handle(req.clone({ withCredentials: true })); // Retry the original request
         }),
-        catchError((err) => {
+        catchError((err: HttpErrorResponse) => {
           this.isRefreshing = false;
-          console.error('Error during token refresh:', err);
-          this.authService.logout().subscribe(); // Logout on refresh token failure
-          return throwError(() => err);
+  
+          if (err.status === 401) {
+            // Directly redirect to login on logout error
+            console.log("Logout karena refresh-token");
+            return this.authService.logout().pipe(
+              tap(() => {
+                // Navigate to login page
+                this.router.navigate(['/login', '/register']).finally(() => {
+                  console.log('Redirecting to login page');
+                });
+              }),
+              catchError((logoutErr: any) => {
+                console.error('Logout error:', logoutErr);
+                // Navigate to login page even if logout fails
+                this.router.navigate(['/login']).finally(() => {
+                  console.log('Redirecting to login page after logout failure');
+                });
+                return throwError(() => new Error('Unauthorized access'));
+              })
+            );
+          } else {
+            // Handle non-401 errors during refresh token process
+            console.error('Error during refresh token process:', err);
+  
+            alert('An unexpected error occurred. Please try again.'); // Replace with your preferred notification method
+  
+            return throwError(() => err); // Rethrow the error to be handled elsewhere
+          }
         })
       );
     } else {
-      console.log('Waiting for token refresh to complete');
+      // If a refresh is in progress, wait for it to complete
       return this.refreshTokenSubject.pipe(
         filter(token => token !== null),
         take(1),

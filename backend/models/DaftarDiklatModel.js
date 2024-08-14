@@ -62,7 +62,7 @@ const DaftarDiklat = db.define('DaftarDiklat', {
         allowNull: false
     },
     jalur_pendaftaran: {
-        type: DataTypes.ENUM('APBN', 'APBD', 'Mandiri', 'Yang Lain'),
+        type: DataTypes.ENUM('APBN', 'APBD', 'Mandiri', 'Yang Lain', 'Other'),
         allowNull: false
     },
     jalur_pendaftaran_lainnya: {
@@ -81,7 +81,7 @@ const DaftarDiklat = db.define('DaftarDiklat', {
         }
     },
     tau_diklat_dari: {
-        type: DataTypes.ENUM('Instagram', 'Whatsapp', 'Website', 'Sosialisasi', 'Brosur/Pamflet', 'Baliho', 'Sekolah', 'Keluarga', 'Teman', 'Yang Lain'),
+        type: DataTypes.ENUM('Instagram', 'Whatsapp', 'Website', 'Sosialisasi', 'Brosur/Pamflet', 'Baliho', 'Sekolah', 'Keluarga', 'Teman', 'Yang Lain', 'Lainnya'),
         allowNull: false
     },
     tau_diklat_dari_lainnya: {

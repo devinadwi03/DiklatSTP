@@ -34,7 +34,6 @@ export const getPendaftarById = async (req, res) => {
 };
 
 const validationRules = {
-    id_user: "required",
     nama: "required",
     tempat_lahir: "required",
     tanggal_lahir: "required",
@@ -53,7 +52,7 @@ const validationRules = {
 
 export const createRegistrasi = async (req, res) => {
     const {
-        id_user, nama, tempat_lahir, tanggal_lahir, nik, usia, jenis_kelamin,
+        nama, tempat_lahir, tanggal_lahir, nik, usia, jenis_kelamin,
         status, alamat_rumah, asal_sekolah_instansi, no_wa_aktif,
         no_telepon_orang_tua, jalur_pendaftaran, jalur_pendaftaran_lainnya,
         jenis_diklat, tau_diklat_dari, tau_diklat_dari_lainnya
@@ -121,7 +120,7 @@ export const createRegistrasi = async (req, res) => {
 };
 
 export const updateRegistrasi = async (req, res) => {
-    const { id } = req.params;
+    const { id } = req.user.userId;
     const {
         nama, tempat_lahir, tanggal_lahir, nik, usia, jenis_kelamin,
         status, alamat_rumah, asal_sekolah_instansi, no_wa_aktif,

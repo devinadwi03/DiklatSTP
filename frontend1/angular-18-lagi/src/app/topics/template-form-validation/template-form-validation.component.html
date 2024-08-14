@@ -79,9 +79,9 @@
       <!-- User input Alamat -->
       <div class="form-group">
         <label for="exampleFormControlInput6">Alamat Rumah</label>
-        <input type="text" #alamatRumah="ngModel" [(ngModel)]="userObj.alamatRumah" name="alamatRumah" class="form-control" id="exampleFormControlInput6" required>
-        <div class="text-danger" *ngIf="alamatRumah.invalid && (alamatRumah.touched || alamatRumah.dirty) || isFormSubmited">
-          <span class="small-text" *ngIf="alamatRumah.errors?.['required']">Wajib diisi</span>
+        <input type="text" #alamat_rumah="ngModel" [(ngModel)]="userObj.alamat_rumah" name="alamat_rumah" class="form-control" id="exampleFormControlInput6" required>
+        <div class="text-danger" *ngIf="alamat_rumah.invalid && (alamat_rumah.touched || alamat_rumah.dirty) || isFormSubmited">
+          <span class="small-text" *ngIf="alamat_rumah.errors?.['required']">Wajib diisi</span>
         </div>
       </div>
 
@@ -106,9 +106,9 @@
       <!-- User Input No Telp Orang tua -->
       <div class="form-group">
         <label for="exampleFormControlInput9">Nomor Telp. Orang Tua</label>
-        <input type="text" #no_telpon_orang_tua="ngModel" [(ngModel)]="userObj.no_telpon_orang_tua" name="no_telpon_orang_tua" class="form-control" id="exampleFormControlInput9" required>
-        <div class="text-danger" *ngIf="no_telpon_orang_tua.invalid && (no_telpon_orang_tua.touched || no_telpon_orang_tua.dirty) || isFormSubmited">
-          <span class="small-text" *ngIf="no_telpon_orang_tua.errors?.['required']">Wajib diisi</span>
+        <input type="text" #no_telepon_orang_tua="ngModel" [(ngModel)]="userObj.no_telepon_orang_tua" name="no_telepon_orang_tua" class="form-control" id="exampleFormControlInput9" required>
+        <div class="text-danger" *ngIf="no_telepon_orang_tua.invalid && (no_telepon_orang_tua.touched || no_telepon_orang_tua.dirty) || isFormSubmited">
+          <span class="small-text" *ngIf="no_telepon_orang_tua.errors?.['required']">Wajib diisi</span>
         </div>
       </div>
 
@@ -170,7 +170,7 @@
 
       <!-- Tombol Submit pendaftaran -->
       <div class="form-group">
-        <button class="btn btn-primary" type="submit" (click)="onSubmit(Userform)">Daftar Diklat</button>
+        <button class="btn btn-primary" type="submit">Daftar Diklat</button>
       </div>
     </form>
   </div>
