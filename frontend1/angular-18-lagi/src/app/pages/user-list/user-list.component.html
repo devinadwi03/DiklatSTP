@@ -1,63 +1,65 @@
 <div class="container mt-4">
-    <div class="d-flex justify-content-between mb-3">
-      <h2>User yang telah mendaftar</h2>
-      <button class="btn btn-primary-custom" (click)="addUser()">Add User</button>
+  <div class="d-flex justify-content-between mb-3">
+    <h2>User yang telah mendaftar</h2>
+    <div>
+      <button class="btn btn-primary-custom me-2" (click)="addUser()">Add User</button>
       <button class="btn btn-success" (click)="exportToExcel()">Download Excel</button>
-    </div>
-    <div class="table-responsive">
-      <table class="table table-bordered table-striped">
-        <thead>
-          <tr>
-            <th class="col-actions">Actions</th>
-            <th class="col-email">Email ID</th>
-            <th class="col-name">Nama</th>
-            <th class="col-birthplace">Tempat Lahir</th>
-            <th class="col-birthdate">Tanggal Lahir</th>
-            <th class="col-nik">NIK</th>
-            <th class="col-age">Usia</th>
-            <th class="col-gender">Jenis Kelamin</th>
-            <th class="col-status">Status</th>
-            <th class="col-address">Alamat Rumah</th>
-            <th class="col-school">Asal Sekolah/Instansi</th>
-            <th class="col-wa">No WA</th>
-            <th class="col-parent-phone">No Telp Orang Tua</th>
-            <th class="col-admission">Jalur Pendaftaran</th>
-            <th class="col-admission-other">Jalur Pendaftaran Lainnya</th>
-            <th class="col-training">Jenis Diklat</th>
-            <th class="col-training-source">Tahu Diklat Dari Mana</th>
-            <th class="col-training-source-other">Tahu Diklat Dari Mana Lainnya</th>
-            <th class="col-level">Level</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let user of users; index as i">
-            <td>{{ i + 1 }}</td>
-            <td>{{ user.emailId }}</td>
-            <td>{{ user.nama }}</td>
-            <td>{{ user.tempat_lahir }}</td>
-            <td>{{ user.tanggal_lahir }}</td>
-            <td>{{ user.nik }}</td>
-            <td>{{ user.usia }}</td>
-            <td>{{ user.jenis_kelamin }}</td>
-            <td>{{ user.status }}</td>
-            <td>{{ user.alamat_rumah }}</td>
-            <td>{{ user.asal_sekolah_instansi }}</td>
-            <td>{{ user.no_wa_aktif }}</td>
-            <td>{{ user.no_telpon_orang_tua }}</td>
-            <td>{{ user.jalur_pendaftaran }}</td>
-            <td>{{ user.jalur_pendaftaran_lainnya }}</td>
-            <td>{{ user.jenis_diklat }}</td>
-            <td>{{ user.tau_diklat_dari }}</td>
-            <td>{{ user.tau_diklat_dari_lainnya }}</td>
-            <td>{{ user.level == 1 ? 'Admin' : 'Siswa' }}</td>
-            <td>
-                <button class="btn btn-warning btn-sm me-2" (click)="editUser(user.id)">Edit</button>
-                <button class="btn btn-danger-custom btn-sm" *ngIf="user.level == 2" (click)="deleteUser(user.id)">Delete</button> 
-                  
-            </td>
-          </tr>
-        </tbody>
-      </table>
     </div>
   </div>
   
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>Email ID</th>
+          <th>Nama</th>
+          <th>Tempat Lahir</th>
+          <th>Tanggal Lahir</th>
+          <th>NIK</th>
+          <th>Usia</th>
+          <th>Jenis Kelamin</th>
+          <th>Status</th>
+          <th>Alamat Rumah</th>
+          <th>Asal Sekolah/Instansi</th>
+          <th>No WA</th>
+          <th>No Telp Orang Tua</th>
+          <th>Jalur Pendaftaran</th>
+          <th>Jalur Pendaftaran Lainnya</th>
+          <th>Jenis Diklat</th>
+          <th>Tahu Diklat Dari Mana</th>
+          <th>Tahu Diklat Dari Mana Lainnya</th>
+          <th>Level</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ user.emailId }}</td>
+          <td>{{ user.nama }}</td>
+          <td>{{ user.tempat_lahir }}</td>
+          <td>{{ user.tanggal_lahir }}</td>
+          <td>{{ user.nik }}</td>
+          <td>{{ user.usia }}</td>
+          <td>{{ user.jenis_kelamin }}</td>
+          <td>{{ user.status }}</td>
+          <td>{{ user.alamat_rumah }}</td>
+          <td>{{ user.asal_sekolah_instansi }}</td>
+          <td>{{ user.no_wa_aktif }}</td>
+          <td>{{ user.no_telpon_orang_tua }}</td>
+          <td>{{ user.jalur_pendaftaran }}</td>
+          <td>{{ user.jalur_pendaftaran_lainnya }}</td>
+          <td>{{ user.jenis_diklat }}</td>
+          <td>{{ user.tau_diklat_dari }}</td>
+          <td>{{ user.tau_diklat_dari_lainnya }}</td>
+          <td>{{ user.level == 1 ? 'Admin' : 'Siswa' }}</td>
+          <td>
+            <button class="btn btn-warning btn-sm me-2" (click)="editUser(user.id)">Edit</button>
+            <button class="btn btn-danger-custom btn-sm" *ngIf="user.level == 2" (click)="deleteUser(user.id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

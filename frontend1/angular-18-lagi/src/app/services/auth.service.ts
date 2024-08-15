@@ -120,4 +120,14 @@ export class AuthService {
       return of(false);
     }
   }
+  getUserRole(): Observable<string> {
+    return this.http.get<{ role: string }>(`${this.apiUrl}/user-role`, { withCredentials: true })
+      .pipe(
+        map(response => response.role),
+        catchError(error => {
+          console.error('Error fetching user role:', error);
+          return of(''); // Kembalikan nilai default jika ada error
+        })
+      );
+  }
 }

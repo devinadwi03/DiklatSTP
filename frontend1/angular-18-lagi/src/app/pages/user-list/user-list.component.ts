@@ -4,9 +4,10 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http'; // Pastikan ini ditambahkan
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
+import { DiklatService } from '../../services/diklat.service';
 
 // Interface untuk mendefinisikan struktur User
-interface User {
+export interface User {
   id: number;
   emailId: string;
   nama: string;
@@ -38,13 +39,13 @@ interface User {
 export class UserListComponent implements OnInit {
   users: User[] = [];
 
-  constructor() {}
+  constructor(private diklatService: DiklatService) {} // Inject DiklatService
 
   ngOnInit(): void {
-    //this.userService.getUsers().subscribe((data: User[]) => {
-      //this.users = data;
-      //console.log('Users loaded:', this.users); // Menampilkan data di konsol
-    //});
+    this.diklatService.getPendaftar().subscribe((data: User[]) => {
+      this.users = data;
+      console.log('Users loaded:', this.users); // Menampilkan data di konsol
+    });
   }
 
   addUser() {

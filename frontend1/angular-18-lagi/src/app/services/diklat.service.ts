@@ -1,7 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
+import { isPlatformBrowser } from '@angular/common';
+import { User } from '../pages/user-list/user-list.component'; // Sesuaikan dengan path yang benar
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +11,7 @@ import { catchError, tap } from 'rxjs/operators';
 export class DiklatService {
   private apiUrl = 'http://localhost:5000'; // Sesuaikan dengan URL API Anda
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: Object) {}
 
   // Fungsi untuk mengirim data diklat
   daftarDiklat(data: any): Observable<any> {
@@ -28,4 +30,21 @@ export class DiklatService {
       })
     );
   }
+
+  getPendaftar(): Observable<User[]> {
+    if (isPlatformBrowser(this.platformId)) {
+      return this.http.get<User[]>(`${this.apiUrl}/loadAll-daftar-diklat`, {
+        withCredentials: true
+      }).pipe(
+        catchError((error: HttpErrorResponse) => {
+          console.error('Error fetching pendaftar:', error);
+          return throwError(() => new Error(`Error: ${error.status} - ${error.message}`));
+        })
+      );
+    } else {
+      // Jika tidak di browser, kembalikan array kosong atau error
+      return of([]);
+    }
+  }
+  
 }
