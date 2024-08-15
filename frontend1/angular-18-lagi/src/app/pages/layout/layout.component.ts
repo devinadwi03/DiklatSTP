@@ -20,7 +20,6 @@ export class LayoutComponent {
     this.authService.logout().subscribe(
       () => {
         this.isLogin = false; // Mengubah status login
-        
         // Redirect ke halaman login
         this.router.navigateByUrl('login');
         // Logika lain yang diperlukan untuk logout, seperti menghapus token dari cookie, dll.

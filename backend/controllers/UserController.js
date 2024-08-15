@@ -31,6 +31,7 @@ export const verifyEmail = async (req, res) => {
 
         console.log("Email berhasil diverifikasi"); // Logging untuk debug
         res.status(200).json({ msg: "Email berhasil diverifikasi" });
+        
     } catch (error) {
         console.error("Error during email verification:", error.message); // Logging untuk debug
         res.status(400).json({ msg: "Token tidak valid atau sudah kadaluwarsa" });

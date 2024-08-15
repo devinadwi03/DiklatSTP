@@ -64,8 +64,10 @@ export class LoginComponent {
       // Check if the form has password mismatch error
       this.authService.register(this.registerForm.value).subscribe(
         response => {
-          alert('Pendaftaran sukses!');
-          this.router.navigateByUrl('login');
+          alert('Pendaftaran sukses! Silakan cek email untuk Verifikasi!');
+          this.router.navigateByUrl('login').then(() => {
+            window.location.reload(); // Refresh halaman setelah navigasi
+          });
         },
         error => {
           alert('Pendaftaran gagal.');
@@ -79,6 +81,7 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.value).subscribe(
         response => {
+          alert('Login Berhasil!');
           const returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'templateFormValidation';
           this.router.navigateByUrl(returnUrl);
         },

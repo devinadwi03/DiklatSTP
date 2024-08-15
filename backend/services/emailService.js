@@ -1,6 +1,6 @@
 import nodemailer from "nodemailer";
 import "dotenv/config";
-const base_url = process.env.BASE_URL;
+const frontend_url = process.env.FRONTEND_URL;
 
 const transporter = nodemailer.createTransport({
     service: process.env.MAIL_SERVICE,
@@ -19,7 +19,7 @@ const createEmail = (email, token) => {
                 <div style="font-family: Arial, sans-serif; line-height: 1.6;">
                 <h2>Konfirmasi Email</h2>
                 <p>Untuk mengaktifkan akun, klik link di bawah: </p>
-                <a href="${base_url}/verify-email/${token}" style="display: inline-block; padding: 10px 20px; color: white; background-color: #007BFF; text-decoration: none; border-radius: 5px;">Aktifkan Akun</a>
+                <a href="${frontend_url}/activation/${token}" style="display: inline-block; padding: 10px 20px; color: white; background-color: #007BFF; text-decoration: none; border-radius: 5px;">Aktifkan Akun</a>
                `,
     };
 };
@@ -47,7 +47,7 @@ const sendResetPasswordMail = (email, token) => {
             <div style="font-family: Arial, sans-serif; line-height: 1.6;">
                 <h2>Permintaan Ubah Password</h2>
                 <p>Anda meminta layanan pengubahan password. Klik link di bawah untuk mengubah password</p>
-                <a href="${base_url}/reset-password/${token}" style="display: inline-block; padding: 10px 20px; color: white; background-color: #007BFF; text-decoration: none; border-radius: 5px;">Reset Password</a>
+                <a href="${frontend_url}/reset-password/${token}" style="display: inline-block; padding: 10px 20px; color: white; background-color: #007BFF; text-decoration: none; border-radius: 5px;">Reset Password</a>
                 <p>Jika ini bukan permintaan anda, abaikan email</p>
                 <p>Terima Kasih, <br>Solo Techno Park</p>
             </div>

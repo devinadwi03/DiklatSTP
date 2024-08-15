@@ -1,7 +1,11 @@
 {
   "routes": [
     "/",
+    "/account-list",
     "/login",
-    "/templateFormValidation"
+    "/register",
+    "/templateFormValidation",
+    "/user-data",
+    "/user-list"
   ]
 }

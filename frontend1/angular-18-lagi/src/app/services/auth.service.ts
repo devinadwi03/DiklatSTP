@@ -42,6 +42,7 @@ export class AuthService {
       withCredentials: true // Untuk menyertakan cookies
     }).pipe(
       tap(() => {
+        alert('Logout Berhasil!');
         console.log('Logout successful');
       }),
       catchError(error => {

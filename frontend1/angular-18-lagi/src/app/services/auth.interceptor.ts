@@ -52,7 +52,7 @@ export class AuthInterceptor implements HttpInterceptor {
             return this.authService.logout().pipe(
               tap(() => {
                 // Navigate to login page
-                this.router.navigate(['/login', '/register']).finally(() => {
+                this.router.navigate(['/login', '/register', '/verify-email', '/resend-verify-email', '/activation']).finally(() => {
                   console.log('Redirecting to login page');
                 });
               }),
