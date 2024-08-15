@@ -1,0 +1,37 @@
+.table-responsive {
+  overflow-x: auto; 
+}
+.table th,
+.table td {
+  white-space: nowrap; 
+  vertical-align: middle; 
+}
+
+.table th {
+  background-color: #f8f9fa; /* Warna latar belakang header */
+  text-align: center; /* Memusatkan teks di header */
+}
+
+.table td {
+  text-align: left; 
+}
+
+/* Responsif untuk perangkat kecil */
+@media (max-width: 768px) {
+  .table th,
+  .table td {
+    font-size: 12px; 
+  }
+}
+.btn-danger-custom, .btn-primary {
+  background-color: #BA181B !important;
+  color: white !important;
+  border-color: #BA181B !important;
+}
+
+.btn-danger-custom:hover, .btn-primary:hover {
+  background-color: #9F1415 !important;
+  border-color: #9F1415 !important;
+}
+
+

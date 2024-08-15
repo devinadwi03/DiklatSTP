@@ -1,0 +1,35 @@
+<div class="container mt-4">
+    <div class="d-flex justify-content-between mb-3">
+      <h2>User yang telah mendaftar</h2>
+      <button class="btn btn-primary" (click)="addUser()">Add User</button>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th class="col-actions">Actions</th>
+            <th class="col-username">Username</th>
+            <th class="col-email">Email</th>
+            <th class="col-firstname">Nama Depan</th>
+            <th class="col-lastname">Nama Belakang</th>
+            <th class="col-level">Level</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users; index as i">
+            <td>{{ i + 1 }}</td>
+            <td>{{ user.emailId }}</td>
+            <td>{{ user.first_name }}</td>
+            <td>{{ user.last_name }}</td>
+            <td>{{ user.level == 1 ? 'Admin' : 'Siswa' }}</td>
+            <td>
+                <button class="btn btn-warning btn-sm me-2" (click)="editUser(user.id)">Edit</button>
+                <button class="btn btn-danger-custom btn-sm" *ngIf="user.level == 2" (click)="deleteUser(user.id)">Delete</button> 
+                  
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  

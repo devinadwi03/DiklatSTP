@@ -1,0 +1,35 @@
+.table-responsive {
+    overflow-x: auto; 
+  }
+  .table th,
+  .table td {
+    white-space: nowrap; 
+    vertical-align: middle; 
+  }
+  
+  .table th {
+    background-color: #f8f9fa; /* Warna latar belakang header */
+    text-align: center; /* Memusatkan teks di header */
+  }
+  
+  .table td {
+    text-align: left; 
+  }
+  
+  /* Responsif untuk perangkat kecil */
+  @media (max-width: 768px) {
+    .table th,
+    .table td {
+      font-size: 12px; 
+    }
+  }
+  .btn-danger {
+    background-color: #BF0A30; 
+    color: white; 
+  }
+  
+  .btn-danger:hover {
+    background-color: #a60b24; 
+  }
+  
+  

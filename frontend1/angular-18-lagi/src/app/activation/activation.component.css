@@ -1,0 +1,10 @@
+.btn-custom-red {
+    background-color: #BF0A30;
+    color: white;
+    border: none; 
+  }
+  
+  .btn-custom-red:hover {
+    background-color: #a30d29; 
+  }
+  
