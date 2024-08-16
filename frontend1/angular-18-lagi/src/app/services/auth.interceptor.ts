@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError, BehaviorSubject, tap } from 'rxjs';
-import { catchError, switchMap, filter, take } from 'rxjs/operators';
+import { Observable, throwError, BehaviorSubject } from 'rxjs';
+import { catchError, switchMap, filter, take, finalize, tap } from 'rxjs/operators';
 import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
 
@@ -20,12 +20,13 @@ export class AuthInterceptor implements HttpInterceptor {
 
     return next.handle(authReq).pipe(
       catchError((error: HttpErrorResponse) => {
-        const publicRoutes = ['/login'];
+        const publicRoutes = ['/login', '/register', '/refresh-token', '/resend-verify-email', '/activation','logout'];
+        // Check if the request URL is not a public route
         if (error.status === 401 && !publicRoutes.some(route => req.url.includes(route))) {
           // Handle unauthorized requests
           return this.handle401Error(req, next);
         } else {
-          // Forward other errors
+          // Forward other errors or errors from public routes
           return throwError(() => error);
         }
       })
@@ -44,16 +45,16 @@ export class AuthInterceptor implements HttpInterceptor {
           return next.handle(req.clone({ withCredentials: true })); // Retry the original request
         }),
         catchError((err: HttpErrorResponse) => {
+          console.error('Error saat refresh token', err);
           this.isRefreshing = false;
-  
+
           if (err.status === 401) {
             // Directly redirect to login on logout error
             console.log("Logout karena refresh-token");
             return this.authService.logout().pipe(
               tap(() => {
                 // Navigate to login page
-                this.router.navigate(['/login', '/register', '/resend-verify-email', '/activation']).finally(() => {
-                  this.router.navigate(['/login']);
+                this.router.navigate(['/login']).finally(() => {
                   console.log('Redirecting to login page');
                 });
               }),
@@ -69,9 +70,7 @@ export class AuthInterceptor implements HttpInterceptor {
           } else {
             // Handle non-401 errors during refresh token process
             console.error('Error during refresh token process:', err);
-  
             alert('An unexpected error occurred. Please try again.'); // Replace with your preferred notification method
-  
             return throwError(() => err); // Rethrow the error to be handled elsewhere
           }
         })

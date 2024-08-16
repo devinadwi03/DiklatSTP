@@ -2,8 +2,8 @@ import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { map, tap, catchError } from 'rxjs/operators';
+import { Observable, of, BehaviorSubject, throwError } from 'rxjs';
+import { catchError, switchMap, map, tap, filter, take } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +12,7 @@ export class AuthService {
   private apiUrl = 'http://localhost:5000'; // URL backend
 
   private isRefreshing = false; // Flag untuk menandakan status refresh token
+  private refreshTokenSubject = new BehaviorSubject<any>(null);
 
   constructor(
     private http: HttpClient,
@@ -59,20 +60,28 @@ export class AuthService {
 
   // Refresh the access token by making a request to the refresh token endpoint
   refreshToken(): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/refresh-token`, {}, { withCredentials: true }).pipe(
-      tap(response => {
-        if (response.accessToken) {
-          console.log('Refresh token successful, new accessToken received:', response.accessToken);
-          // Token is managed by the backend with HttpOnly cookie, no need to store it manually
-        } else {
-          console.warn('Refresh token successful, but no new accessToken received');
-        }
-      }),
-      catchError(error => {
-        console.error('Refresh token error:', error);
-        return of(null); // Handle error appropriately
-      })
-    );
+    if (!this.isRefreshing) {
+      this.isRefreshing = true;
+      this.refreshTokenSubject.next(null);
+
+      return this.http.post<{ accessToken: string }>(`${this.apiUrl}/refresh-token`, {}, { withCredentials: true }).pipe(
+        switchMap((response) => {
+          this.isRefreshing = false;
+          this.refreshTokenSubject.next(response.accessToken);
+          return of(response.accessToken);
+        }),
+        catchError((error) => {
+          this.isRefreshing = false;
+          this.refreshTokenSubject.next(null);
+          return throwError(() => error);
+        })
+      );
+    } else {
+      return this.refreshTokenSubject.pipe(
+        filter(token => token !== null),
+        take(1)
+      );
+    }
   }
 
   // Register a new user
