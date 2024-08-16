@@ -11,10 +11,10 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideClientHydration(),
+    FormsModule,
     provideHttpClient(
       withInterceptorsFromDi() // Menambahkan interceptor dari dependency injection
     ),
-    importProvidersFrom(FormsModule), 
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ]
 };
