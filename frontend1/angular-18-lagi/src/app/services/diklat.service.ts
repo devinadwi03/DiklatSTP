@@ -4,6 +4,7 @@ import { Observable, throwError, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { isPlatformBrowser } from '@angular/common';
 import { User } from '../pages/user-list/user-list.component'; // Sesuaikan dengan path yang benar
+import { User1 } from '../pages/user-data/user-data.component'; // Sesuaikan dengan path yang benar
 
 @Injectable({
   providedIn: 'root'
@@ -46,5 +47,20 @@ export class DiklatService {
       return of([]);
     }
   }
+  getUserData(): Observable<User1 | null> {
+    if (isPlatformBrowser(this.platformId)) {
+      return this.http.get<User1>(`${this.apiUrl}/load-daftar-diklat`, {
+        withCredentials: true
+      }).pipe(
+        catchError((error: HttpErrorResponse) => {
+          console.error('Error fetching user data:', error);
+          return throwError(() => new Error(`Error: ${error.status} - ${error.message}`));
+        })
+      );
+    } else {
+      return of(null);
+    }
+  }
+  
   
 }
