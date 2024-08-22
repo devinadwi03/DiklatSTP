@@ -27,12 +27,12 @@ router.get('/user-role', verifyToken, (req, res) => {
   res.json({ role: role });
 });
 
-router.get('/users', verifyToken, verifyLastActive, adminOnly, getUsers);
-router.get('/users/:id', verifyToken, verifyLastActive, isUserOrAdmin, getUsersById);
+router.get('/getUsers', verifyToken, verifyLastActive, adminOnly, getUsers);
+router.get('/getUserById', verifyToken, verifyLastActive, isUserOrAdmin, getUsersById);
 router.post('/register', createUser);
-router.put('/users/:id', verifyToken, verifyLastActive, isUserOrAdmin, updateUser);
-router.delete('/users/:id', verifyToken, verifyLastActive, adminOnly, deleteUser);
-router.put('/users/update-password/:id', verifyToken, verifyLastActive, isUserOrAdmin, updatePassword);
+router.put('/updateUser', verifyToken, verifyLastActive, isUserOrAdmin, updateUser);
+router.delete('/deleteUser', verifyToken, verifyLastActive, adminOnly, deleteUser);
+router.put('/update-password', verifyToken, verifyLastActive, isUserOrAdmin, updatePassword);
 router.post('/resend-verification-email', resendVerificationEmail); // Endpoint baru
 
 router.post('/login', Login);

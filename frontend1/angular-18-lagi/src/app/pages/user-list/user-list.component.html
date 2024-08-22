@@ -12,51 +12,25 @@
       <thead>
         <tr>
           <th>No</th>
-          <th>Email ID</th>
-          <th>Nama</th>
-          <th>Tempat Lahir</th>
-          <th>Tanggal Lahir</th>
-          <th>NIK</th>
-          <th>Usia</th>
-          <th>Jenis Kelamin</th>
-          <th>Status</th>
-          <th>Alamat Rumah</th>
-          <th>Asal Sekolah/Instansi</th>
-          <th>No WA</th>
-          <th>No Telp Orang Tua</th>
-          <th>Jalur Pendaftaran</th>
-          <th>Jalur Pendaftaran Lainnya</th>
-          <th>Jenis Diklat</th>
-          <th>Tahu Diklat Dari Mana</th>
-          <th>Tahu Diklat Dari Mana Lainnya</th>
-          <th>Level</th>
+          <th>Username</th>
+          <th>Email</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Role</th>
           <th>Actions</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let user of users; let i = index">
           <td>{{ i + 1 }}</td>
-          <td>{{ user.emailId }}</td>
-          <td>{{ user.nama }}</td>
-          <td>{{ user.tempat_lahir }}</td>
-          <td>{{ user.tanggal_lahir }}</td>
-          <td>{{ user.nik }}</td>
-          <td>{{ user.usia }}</td>
-          <td>{{ user.jenis_kelamin }}</td>
-          <td>{{ user.status }}</td>
-          <td>{{ user.alamat_rumah }}</td>
-          <td>{{ user.asal_sekolah_instansi }}</td>
-          <td>{{ user.no_wa_aktif }}</td>
-          <td>{{ user.no_telpon_orang_tua }}</td>
-          <td>{{ user.jalur_pendaftaran }}</td>
-          <td>{{ user.jalur_pendaftaran_lainnya }}</td>
-          <td>{{ user.jenis_diklat }}</td>
-          <td>{{ user.tau_diklat_dari }}</td>
-          <td>{{ user.tau_diklat_dari_lainnya }}</td>
-          <td>{{ user.level == 1 ? 'Admin' : 'Siswa' }}</td>
+          <td>{{ user.username }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.first_name }}</td>
+          <td>{{ user.last_name }}</td>
+          <td>{{ user.role }}</td>
           <td>
             <button class="btn btn-warning btn-sm me-2" (click)="editUser(user.id)">Edit</button>
-            <button class="btn btn-danger-custom btn-sm" *ngIf="user.level == 2" (click)="deleteUser(user.id)">Delete</button>
+            <button class="btn btn-danger-custom btn-sm" *ngIf="user.role !== 'Admin'" (click)="deleteUser(user.id)">Delete</button>
           </td>
         </tr>
       </tbody>

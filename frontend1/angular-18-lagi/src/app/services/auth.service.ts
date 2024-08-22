@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, of, BehaviorSubject, throwError } from 'rxjs';
 import { catchError, switchMap, map, tap, filter, take } from 'rxjs/operators';
+import { User } from '../pages/user-list/user-list.component';
 
 @Injectable({
   providedIn: 'root'
@@ -139,10 +140,22 @@ export class AuthService {
         })
       );
   }
+
   getUserRegistrationStatus(): Observable<boolean> {
     const url = `${this.apiUrl}/check-registration-status`; // Sesuaikan endpoint
     return this.http.get<{ isRegistered: boolean }>(url, { withCredentials: true }).pipe(
       map(response => response.isRegistered)
+    );
+  }
+
+  getUsers(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.apiUrl}/getUsers`, {
+      withCredentials: true
+    }).pipe(
+      catchError((error: HttpErrorResponse) => {
+        console.error('Error fetching pendaftar:', error);
+        return throwError(() => new Error(`Error: ${error.status} - ${error.message}`));
+      })
     );
   }
 }

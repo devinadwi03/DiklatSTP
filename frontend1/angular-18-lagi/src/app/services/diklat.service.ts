@@ -47,6 +47,7 @@ export class DiklatService {
       return of([]);
     }
   }
+  
   getUserData(): Observable<User1 | null> {
     if (isPlatformBrowser(this.platformId)) {
       return this.http.get<User1>(`${this.apiUrl}/load-daftar-diklat`, {
