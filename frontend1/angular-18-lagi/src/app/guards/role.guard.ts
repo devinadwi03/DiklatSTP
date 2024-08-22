@@ -19,15 +19,19 @@ export class RoleGuard implements CanActivate {
     return this.authService.getUserRole().pipe(
       map(currentRole => {
         if (currentRole !== expectedRole) {
-          // Arahkan ke halaman unauthorized jika role tidak sesuai
-          this.router.navigate(['unauthorized']);
+          alert('Anda tidak memiliki akses ke halaman ini!');
+          
+          // Arahkan ke halaman lain, misalnya dashboard atau home
+          this.router.navigate(['/dashboard']); // atau sesuaikan dengan rute yang tepat
           return false;
         }
         return true;
       }),
       catchError(() => {
-        // Arahkan ke halaman unauthorized jika ada error
-        this.router.navigate(['unauthorized']);
+        alert('Terjadi kesalahan! Anda tidak dapat mengakses halaman ini.');
+        
+        // Arahkan ke halaman lain, misalnya dashboard atau home
+        this.router.navigate(['/dashboard']); // atau sesuaikan dengan rute yang tepat
         return of(false);
       })
     );

@@ -36,7 +36,7 @@ router.put('/users/update-password/:id', verifyToken, verifyLastActive, isUserOr
 router.post('/resend-verification-email', resendVerificationEmail); // Endpoint baru
 
 router.post('/login', Login);
-router.post('/logout', verifyToken, Logout); // Logout harus terautentikasi untuk mengetahui siapa yang logout
+router.post('/logout', Logout); // Logout harus terautentikasi untuk mengetahui siapa yang logout
 
 router.post('/forgot-password', forgotPassword);
 router.post('/reset-password/:token', resetPassword);

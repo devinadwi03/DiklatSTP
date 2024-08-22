@@ -1,0 +1,21 @@
+(DONE) * Membuat Guard Role - TINGGAL SESUAIKAN PAGE
+* Mengarahkan user ke form daftar diklat setelah login (sementara)
+* Mengarahkan admin ke list pendaftar diklat 
+(DONE) * Aturan form daftar diklat tidak boleh dibuka oleh yang sudah daftar
+* Integrasi front&back tampil data akun pemilik
+* Integrasi front&back tampil list akun u/ admin
+* Integrasi front&back edit data pendaftar
+* Integrasi front&back edit data akun pemilik
+* Integrasi front&back ganti password manual
+* Integrasi front&back lupa password
+* Integrasi front&back ganti password setelah lupa password
+* Fungsi Logout setelah 30 menit tidak ada aktivitas
+
+Front Page yang belum ada di aku:
+* navbar user
+* navbar admin
+* home screen
+* edit akun
+* lupa password
+* ganti password manual
+* ganti password setelah lupa password

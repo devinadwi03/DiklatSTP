@@ -288,12 +288,13 @@ export const Login = async (req, res) => {
         const userId = user.id;
         const username = user.username;
         const email = user.email;
+        const role = user.role;
         
-        const accessToken = jwt.sign({ userId, username, email }, process.env.ACCESS_TOKEN_SECRET, {
-            expiresIn: '1m' 
+        const accessToken = jwt.sign({ userId, username, email, role }, process.env.ACCESS_TOKEN_SECRET, {
+            expiresIn: '3m' 
         });
 
-        const refreshToken = jwt.sign({ userId, username, email }, process.env.REFRESH_TOKEN_SECRET, {
+        const refreshToken = jwt.sign({ userId, username, email, role }, process.env.REFRESH_TOKEN_SECRET, {
             expiresIn: '1d'
         });
 
@@ -343,7 +344,7 @@ export const Logout = async (req, res) => {
   
       // Jika tidak ada refreshToken, tidak perlu melakukan apa-apa
       if (!refreshToken) {
-        return res.status(204).send(); // 204 No Content
+        return res.status(401).send(); // 401 TIDAK LOGIN 
       }
   
       // Cari pengguna berdasarkan refresh token

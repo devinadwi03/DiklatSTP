@@ -9,6 +9,8 @@ import { AccountListComponent } from './pages/account-list/account-list.componen
 //import { UserAccountComponent } from './pages/user-account/user-account.component';
 import { ActivationComponent } from './activation/activation.component';
 import { AuthGuard } from './guards/auth.guards'; // Sesuaikan path sesuai kebutuhan
+import { RoleGuard } from './guards/role.guard';
+import { RegistrationGuard } from './guards/registration.guard';
 
 export const routes: Routes = [
   {
@@ -22,7 +24,9 @@ export const routes: Routes = [
   },
   { 
     path: 'register',
-    component: LoginComponent 
+    component: LoginComponent,
+    canActivate: [RoleGuard], 
+    data: { expectedRole: 'user' } // Hanya user yang bisa mendaftar
   },
   {
     path: '',
@@ -31,19 +35,27 @@ export const routes: Routes = [
     children: [
       {
         path: 'templateFormValidation',
-        component: TemplateFormValidationComponent
+        component: TemplateFormValidationComponent,
+        canActivate: [RoleGuard, RegistrationGuard],
+        data: { expectedRole: 'user' } // Hanya user yang bisa mendaftar
       },
       {
         path: 'user-list',
         component: UserListComponent,
+        canActivate: [RoleGuard],
+        data: { expectedRole: 'admin' } // Hanya admin yang bisa lihat semua pendaftar
       },
       {
         path: 'user-data',
-        component: UserDataComponent
+        component: UserDataComponent,
+        canActivate: [RoleGuard],
+        data: { expectedRole: 'user' } // Hanya user yang bisa update data
       },
       {
         path: 'account-list',
         component: AccountListComponent,
+        canActivate: [RoleGuard],
+        data: { expectedRole: 'admin' } // Hanya admin yang bisa lihat semua pendaftar
       },
       //{
         //path: 'user-account',

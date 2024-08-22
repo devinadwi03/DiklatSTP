@@ -12,8 +12,8 @@ export const refreshToken = async (req, res) => {
     jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
         if (err) return res.sendStatus(403);
 
-        const newAccessToken = jwt.sign({ userId: decoded.userId, username: decoded.username, email: decoded.email }, process.env.ACCESS_TOKEN_SECRET, {
-            expiresIn: '1m'
+        const newAccessToken = jwt.sign({ userId: decoded.userId, username: decoded.username, email: decoded.email, role: decoded.role, }, process.env.ACCESS_TOKEN_SECRET, {
+            expiresIn: '3m'
         });
 
         // Kirimkan access token dalam cookie

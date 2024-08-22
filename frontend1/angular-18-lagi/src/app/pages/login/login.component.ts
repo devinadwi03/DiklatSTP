@@ -81,9 +81,13 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.value).subscribe(
         response => {
-          alert('Login Berhasil!');
-          const returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'templateFormValidation';
-          this.router.navigateByUrl(returnUrl);
+          if (response) { // Pastikan response tidak null
+            alert('Login Berhasil!');
+            const returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'templateFormValidation';
+            this.router.navigateByUrl(returnUrl);
+          } else {
+            alert('Username atau password salah');
+          }
         },
         error => {
           alert('Username atau password salah');

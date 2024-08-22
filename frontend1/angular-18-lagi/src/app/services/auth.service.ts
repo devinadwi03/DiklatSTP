@@ -20,7 +20,6 @@ export class AuthService {
     @Inject(PLATFORM_ID) private platformId: Object // Untuk platform checking
   ) {}
 
-  // Fungsi untuk login
   login(data: any): Observable<any> {
     const url = `${this.apiUrl}/login`;
     const headers = new HttpHeaders({
@@ -32,7 +31,7 @@ export class AuthService {
       }),
       catchError(error => {
         console.error('Login error:', error);
-        return of(null);
+        return throwError(error); // Mengembalikan error untuk ditangani oleh subscriber
       })
     );
   }
@@ -47,13 +46,14 @@ export class AuthService {
         console.log('Logout successful');
       }),
       catchError(error => {
+        const status = error.status || 0;
         console.error('Logout error:', error);
         // Arahkan ke halaman login jika terjadi kesalahan
         this.router.navigateByUrl('login').then(() => {
           // Tidak mengembalikan observable dari sini
         });
         // Kembalikan Observable dengan nilai default
-        return of(null);
+        return of({ error: true, status });
       })
     );
   }
@@ -138,5 +138,11 @@ export class AuthService {
           return of(''); // Kembalikan nilai default jika ada error
         })
       );
+  }
+  getUserRegistrationStatus(): Observable<boolean> {
+    const url = `${this.apiUrl}/check-registration-status`; // Sesuaikan endpoint
+    return this.http.get<{ isRegistered: boolean }>(url, { withCredentials: true }).pipe(
+      map(response => response.isRegistered)
+    );
   }
 }
