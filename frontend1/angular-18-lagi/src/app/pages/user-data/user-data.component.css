@@ -1,9 +1,11 @@
 .container-custom {
     margin-top: 50px;
 }
+
 .profile-button {
     width: 100%;
 }
+
 body {
     background: rgb(186, 24, 27)
 }
@@ -43,9 +45,19 @@ body {
 }
 
 .custom-button {
-    background-color: #BA181B !important; 
-    border-color: #BA181B !important; 
-    color: white; 
+    background-color: #BA181B !important;
+    border-color: #BA181B !important;
+    color: white;
 }
 
+.is-invalid {
+    border-color: #dc3545;
+}
 
+.text-danger {
+    color: #dc3545;
+}
+
+.small-text {
+    font-size: 0.875rem;
+}

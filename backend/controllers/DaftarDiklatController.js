@@ -120,7 +120,7 @@ export const createRegistrasi = async (req, res) => {
 };
 
 export const updateRegistrasi = async (req, res) => {
-    const { id } = req.user.userId;
+    const id = req.user.userId;
     const {
         nama, tempat_lahir, tanggal_lahir, nik, usia, jenis_kelamin,
         status, alamat_rumah, asal_sekolah_instansi, no_wa_aktif,

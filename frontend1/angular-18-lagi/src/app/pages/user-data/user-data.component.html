@@ -1,85 +1,258 @@
-<div class="container container-custom rounded bg-white shadow-sm mt-5 mb-5" *ngIf="user">
-    <div class="row">
-        <div class="col-md-3 border-right">
-            <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-                <img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" alt="Profile Picture">
-                <span class="fw-bold">{{ user.nama }}</span>
-                <span class="text-black-50">{{ user.no_wa_aktif }}</span> <!-- Diganti email dengan no_wa_aktif -->
-            </div>
-        </div>
-        <div class="col-md-5 border-right">
-            <div class="p-3 py-5">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h4 class="text-end">Profile Settings</h4>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-md-12">
-                        <label class="form-label">Nama Lengkap</label>
-                        <input type="text" class="form-control" [(ngModel)]="user.nama" placeholder="Nama Lengkap">
-                    </div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-md-12">
-                        <label class="form-label">Tempat Lahir</label>
-                        <input type="text" class="form-control" [(ngModel)]="user.tempat_lahir" placeholder="Masukkan Tempat Lahir">
-                    </div>
-                    <div class="col-md-12 mt-2">
-                        <label class="form-label">Tanggal Lahir</label>
-                        <input type="date" class="form-control" [(ngModel)]="user.tanggal_lahir" placeholder="Masukkan Tanggal Lahir">
-                    </div>
-                    <div class="col-md-12 mt-2">
-                        <label class="form-label">NIK</label>
-                        <input type="text" class="form-control" [(ngModel)]="user.nik" placeholder="Masukkan NIK">
-                    </div>
-                    <div class="col-md-12 mt-2">
-                        <label class="form-label">Usia</label>
-                        <input type="number" class="form-control" [(ngModel)]="user.usia" placeholder="Masukkan Usia">
-                    </div>
-                    <div class="col-md-12 mt-2">
-                        <label class="form-label">Jenis Kelamin</label>
-                        <input type="text" class="form-control" [(ngModel)]="user.jenis_kelamin" placeholder="Pria/Wanita">
-                    </div>
-                    <div class="col-md-12 mt-2">
-                        <label class="form-label">Status</label>
-                        <input type="text" class="form-control" [(ngModel)]="user.status" placeholder="Masukkan Status Sesuai KTP">
-                    </div>
-                </div>
-                <div class="mt-5 text-center">
-                    <button class="btn btn-primary profile-button" type="button">Save Profile</button>
+<form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)">
+    <div class="container container-custom rounded bg-white shadow-sm mt-5 mb-5" *ngIf="user">
+        <div class="row">
+            <!-- Profil User -->
+            <div class="col-md-3 border-right">
+                <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                    <img class="rounded-circle mt-5" width="150px"
+                        src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
+                        alt="Profile Picture">
+                    <span class="fw-bold">{{ user.nama }}</span>
+                    <span class="text-black-50">{{ user.no_wa_aktif }}</span>
                 </div>
             </div>
-        </div>
-        <div class="col-md-4">
-            <div class="p-3 py-5">
-                <div class="col-md-12 mt-2">
-                    <label class="form-label">Alamat</label>
-                    <input type="text" class="form-control" [(ngModel)]="user.alamat_rumah" placeholder="Masukkan Alamat Sesuai KTP">
-                </div>
-                <div class="col-md-12 mt-2">
-                    <label class="form-label">Asal Sekolah/Instansi</label>
-                    <input type="text" class="form-control" [(ngModel)]="user.asal_sekolah_instansi" placeholder="Masukkan Asal Sekolah/Instansi">
-                </div>
-                <div class="col-md-12 mt-2">
-                    <label class="form-label">No. Whatsapp</label>
-                    <input type="text" class="form-control" [(ngModel)]="user.no_wa_aktif" placeholder="Masukkan No. Whatsapp">
-                </div>
-                <div class="col-md-12 mt-2">
-                    <label class="form-label">No Telp Orang Tua</label>
-                    <input type="text" class="form-control" [(ngModel)]="user.no_telepon_orang_tua" placeholder="Masukkan No Telp Orang Tua">
-                </div>
-                <div class="col-md-12 mt-2">
-                    <label class="form-label">Jalur Pendaftaran</label>
-                    <input type="text" class="form-control" [(ngModel)]="user.jalur_pendaftaran" placeholder="Masukkan Jalur Pendaftaran">
-                </div>
-                <div class="col-md-12 mt-2">
-                    <label class="form-label">Jenis Diklat</label>
-                    <input type="text" class="form-control" [(ngModel)]="user.jenis_diklat[0]" placeholder="Masukkan Jenis Diklat"> <!-- Tampilkan nilai pertama dari array -->
-                </div>
-                <div class="col-md-12 mt-2">
-                    <label class="form-label">Sumber Informasi</label>
-                    <input type="text" class="form-control" [(ngModel)]="user.tau_diklat_dari" placeholder="Masukkan Sumber Informasi">
+
+            <!-- Form Data Pendaftaran Dibagi Menjadi Dua Kolom -->
+            <div class="col-md-9">
+                <div class="row">
+                    <!-- Kolom Form Data Pendaftaran Kiri -->
+                    <div class="col-md-6">
+                        <div class="p-3 py-5">
+                            <h4>Data Pendaftaran Diklat</h4>
+
+                            <!-- Nama Lengkap -->
+                            <div class="form-group mt-3">
+                                <label>Nama Lengkap</label>
+                                <input type="text" class="form-control" [(ngModel)]="user.nama" name="nama"
+                                    #nama="ngModel" minlength="3" required>
+                                <div class="text-danger" *ngIf="nama.invalid && (nama.touched || nama.dirty)">
+                                    <span class="small-text" *ngIf="nama.errors?.['required']">Wajib diisi</span>
+                                    <span class="small-text" *ngIf="nama.errors?.['minlength']">Minimal 3
+                                        Karakter</span>
+                                </div>
+                            </div>
+
+                            <!-- Tempat Lahir -->
+                            <div class="form-group mt-3">
+                                <label>Tempat Lahir</label>
+                                <input type="text" class="form-control" [(ngModel)]="user.tempat_lahir"
+                                    name="tempat_lahir" #tempat_lahir="ngModel" required>
+                                <div class="text-danger"
+                                    *ngIf="tempat_lahir.invalid && (tempat_lahir.touched || tempat_lahir.dirty)">
+                                    <span class="small-text" *ngIf="tempat_lahir.errors?.['required']">Wajib
+                                        diisi</span>
+                                </div>
+                            </div>
+
+                            <!-- Tanggal Lahir -->
+                            <div class="form-group mt-3">
+                                <label>Tanggal Lahir</label>
+                                <input type="date" class="form-control" [(ngModel)]="user.tanggal_lahir"
+                                    name="tanggal_lahir" #tanggal_lahir="ngModel" required>
+                                <div class="text-danger"
+                                    *ngIf="tanggal_lahir.invalid && (tanggal_lahir.touched || tanggal_lahir.dirty)">
+                                    <span class="small-text" *ngIf="tanggal_lahir.errors?.['required']">Wajib
+                                        diisi</span>
+                                </div>
+                            </div>
+
+                            <!-- NIK -->
+                            <div class="form-group mt-3">
+                                <label>NIK</label>
+                                <input type="text" class="form-control" [(ngModel)]="user.nik" name="nik" #nik="ngModel"
+                                    minlength="16" maxlength="16" required>
+                                <div class="text-danger" *ngIf="nik.invalid && (nik.touched || nik.dirty)">
+                                    <span class="small-text" *ngIf="nik.errors?.['required']">Wajib diisi</span>
+                                    <span class="small-text" *ngIf="nik.errors?.['minlength']">Min 16 Karakter</span>
+                                </div>
+                            </div>
+
+                            <!-- Usia -->
+                            <div class="form-group mt-3">
+                                <label>Usia (dalam tahun)</label>
+                                <input type="number" class="form-control" [(ngModel)]="user.usia" name="usia"
+                                    #usia="ngModel" required>
+                                <div class="text-danger" *ngIf="usia.invalid && (usia.touched || usia.dirty)">
+                                    <span class="small-text" *ngIf="usia.errors?.['required']">Wajib diisi</span>
+                                </div>
+                            </div>
+
+                            <!-- Jenis Kelamin -->
+                            <div class="form-group mt-3">
+                                <label>Jenis Kelamin</label>
+                                <select class="form-control" [(ngModel)]="user.jenis_kelamin" name="jenis_kelamin"
+                                    #jenis_kelamin="ngModel" required>
+                                    <option value="Laki-laki">Laki-Laki</option>
+                                    <option value="Perempuan">Perempuan</option>
+                                </select>
+                                <div class="text-danger"
+                                    *ngIf="jenis_kelamin.invalid && (jenis_kelamin.touched || jenis_kelamin.dirty)">
+                                    <span class="small-text" *ngIf="jenis_kelamin.errors?.['required']">Wajib
+                                        diisi</span>
+                                </div>
+                            </div>
+
+                            <!-- Status -->
+                            <div class="form-group mt-3">
+                                <label>Status</label>
+                                <select class="form-control" [(ngModel)]="user.status" name="status" #status="ngModel"
+                                    required>
+                                    <option value="Menikah">Menikah</option>
+                                    <option value="Belum Menikah">Belum Menikah</option>
+                                </select>
+                                <div class="text-danger" *ngIf="status.invalid && (status.touched || status.dirty)">
+                                    <span class="small-text" *ngIf="status.errors?.['required']">Wajib diisi</span>
+                                </div>
+                            </div>
+
+                            <!-- Alamat -->
+                            <div class="form-group mt-3">
+                                <label>Alamat Rumah</label>
+                                <input type="text" class="form-control" [(ngModel)]="user.alamat_rumah"
+                                    name="alamat_rumah" #alamat_rumah="ngModel" required>
+                                <div class="text-danger"
+                                    *ngIf="alamat_rumah.invalid && (alamat_rumah.touched || alamat_rumah.dirty)">
+                                    <span class="small-text" *ngIf="alamat_rumah.errors?.['required']">Wajib
+                                        diisi</span>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    <!-- Kolom Form Data Pendaftaran Kanan -->
+                    <div class="col-md-6">
+                        <div class="p-3 py-5">
+                            <!-- Asal Sekolah/Instansi -->
+                            <div class="form-group mt-3">
+                                <label>Asal Sekolah atau Instansi</label>
+                                <input type="text" class="form-control" [(ngModel)]="user.asal_sekolah_instansi"
+                                    name="asal_sekolah_instansi" #asal_sekolah_instansi="ngModel" required>
+                                <div class="text-danger"
+                                    *ngIf="asal_sekolah_instansi.invalid && (asal_sekolah_instansi.touched || asal_sekolah_instansi.dirty)">
+                                    <span class="small-text" *ngIf="asal_sekolah_instansi.errors?.['required']">Wajib
+                                        diisi</span>
+                                </div>
+                            </div>
+
+                            <!-- No. Whatsapp -->
+                            <div class="form-group mt-3">
+                                <label>No. Whatsapp</label>
+                                <input type="text" class="form-control" [(ngModel)]="user.no_wa_aktif"
+                                    name="no_wa_aktif" #no_wa_aktif="ngModel" required>
+                                <div class="text-danger"
+                                    *ngIf="no_wa_aktif.invalid && (no_wa_aktif.touched || no_wa_aktif.dirty)">
+                                    <span class="small-text" *ngIf="no_wa_aktif.errors?.['required']">Wajib diisi</span>
+                                </div>
+                            </div>
+
+                            <!-- No. Telepon Orang Tua -->
+                            <div class="form-group mt-3">
+                                <label>No Telp Orang Tua</label>
+                                <input type="text" class="form-control" [(ngModel)]="user.no_telepon_orang_tua"
+                                    name="no_telepon_orang_tua" #no_telepon_orang_tua="ngModel" required>
+                                <div class="text-danger"
+                                    *ngIf="no_telepon_orang_tua.invalid && (no_telepon_orang_tua.touched || no_telepon_orang_tua.dirty)">
+                                    <span class="small-text" *ngIf="no_telepon_orang_tua.errors?.['required']">Wajib
+                                        diisi</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group mt-3">
+                                <label>Jenis Diklat</label>
+                                <div *ngFor="let diklat of diklatOptions">
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" [id]="diklat" [value]="diklat"
+                                            (change)="onDiklatChange($event)"
+                                            [checked]="user.jenis_diklat.includes(diklat)">
+                                        <label class="form-check-label" [for]="diklat">{{ diklat }}</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Jalur Pendaftaran -->
+                            <div class="form-group mt-3">
+                                <label>Jalur Pendaftaran</label>
+                                <select class="form-control" [(ngModel)]="user.jalur_pendaftaran"
+                                    name="jalur_pendaftaran" #jalur_pendaftaran="ngModel"
+                                    (change)="onJalurPendaftaranChange()" required>
+                                    <option value="APBN">APBN</option>
+                                    <option value="APBD">APBD</option>
+                                    <option value="Mandiri">Mandiri</option>
+                                    <option value="Other">Lainnya</option>
+                                </select>
+                                <div class="text-danger"
+                                    *ngIf="jalur_pendaftaran.invalid && (jalur_pendaftaran.touched || jalur_pendaftaran.dirty)">
+                                    <span class="small-text" *ngIf="jalur_pendaftaran.errors?.['required']">Wajib
+                                        diisi</span>
+                                </div>
+                            </div>
+
+                            <!-- Jalur Pendaftaran Lainnya -->
+                            <div *ngIf="user.jalur_pendaftaran === 'Other'" class="form-group mt-3">
+                                <label>Jalur Pendaftaran Lainnya </label>
+                                <input type="text" class="form-control" [(ngModel)]="user.jalur_pendaftaran_lainnya"
+                                    name="jalur_pendaftaran_lainnya" #jalur_pendaftaran_lainnya="ngModel"
+                                    placeholder="Masukkan jalur pendaftaran jika ada"
+                                    [ngClass]="{ 'is-invalid': jalur_pendaftaran_lainnya.invalid && (jalur_pendaftaran_lainnya.touched || jalur_pendaftaran_lainnya.dirty) }"
+                                    [value]="user.jalur_pendaftaran_lainnya || ''" required>
+                                <div class="text-danger"
+                                    *ngIf="jalur_pendaftaran_lainnya.invalid && (jalur_pendaftaran_lainnya.touched || jalur_pendaftaran_lainnya.dirty)">
+                                    <span class="small-text"
+                                        *ngIf="jalur_pendaftaran_lainnya.errors?.['required']">Wajib
+                                        diisi jika memilih "Lainnya"</span>
+                                </div>
+                            </div>
+
+                            <!-- Mengetahui Diklat dari Mana -->
+                            <div class="form-group mt-3">
+                                <label>Sumber Informasi Diklat</label>
+                                <select class="form-control" [(ngModel)]="user.tau_diklat_dari" name="tau_diklat_dari"
+                                    #tau_diklat_dari="ngModel" (change)="onTauDiklatDariChange()" required>
+                                    <option value="" disabled>Pilih salah satu</option>
+                                    <option value="Instagram">Instagram</option>
+                                    <option value="Whatsapp">WhatsApp</option>
+                                    <option value="Website">Website</option>
+                                    <option value="Sosialisasi">Sosialisasi</option>
+                                    <option value="BrosurPamflet">Brosur/Pamflet</option>
+                                    <option value="Baliho">Baliho</option>
+                                    <option value="Sekolah">Sekolah</option>
+                                    <option value="Keluarga">Keluarga</option>
+                                    <option value="Teman">Teman</option>
+                                    <option value="Lainnya">Lainnya</option>
+                                </select>
+                                <div class="text-danger"
+                                    *ngIf="tau_diklat_dari.invalid && (tau_diklat_dari.touched || tau_diklat_dari.dirty)">
+                                    <span class="small-text" *ngIf="tau_diklat_dari.errors?.['required']">Wajib
+                                        diisi</span>
+                                </div>
+                            </div>
+
+                            <!-- Mengetahui Diklat dari Lainnya -->
+                            <div *ngIf="user.tau_diklat_dari === 'Lainnya'" class="form-group mt-3">
+                                <label>Sumber Informasi Diklat Lainnya</label>
+                                <input type="text" class="form-control" [(ngModel)]="user.tau_diklat_dari_lainnya"
+                                    name="tau_diklat_dari_lainnya" #tau_diklat_dari_lainnya="ngModel"
+                                    placeholder="Masukkan informasi jika ada"
+                                    [ngClass]="{ 'is-invalid': tau_diklat_dari_lainnya.invalid && (tau_diklat_dari_lainnya.touched || tau_diklat_dari_lainnya.dirty) }"
+                                    [value]="user.tau_diklat_dari_lainnya || ''">
+                                <div class="text-danger"
+                                    *ngIf="tau_diklat_dari_lainnya.invalid && (tau_diklat_dari_lainnya.touched || tau_diklat_dari_lainnya.dirty)">
+                                    <span class="small-text" *ngIf="tau_diklat_dari_lainnya.errors?.['required']">Wajib
+                                        diisi jika memilih "Lainnya"</span>
+                                </div>
+                            </div>
+
+
+                            <!-- Submit Button -->
+                            <div class="form-group mt-3">
+                                <button type="submit" class="btn btn-primary">Simpan</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</form>

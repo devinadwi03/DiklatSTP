@@ -62,6 +62,18 @@ export class DiklatService {
       return of(null);
     }
   }
+
+  updateDataDiklat(user: User1): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/update-daftar-diklat`, user, {
+      withCredentials: true
+    }).pipe(
+      catchError((error: HttpErrorResponse) => {
+        console.error('Error updating user data:', error);
+        return throwError(() => new Error(`Error: ${error.status} - ${error.message}`));
+      })
+    );
+  }
+  
   
   
 }

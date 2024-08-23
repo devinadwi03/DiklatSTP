@@ -34,11 +34,18 @@ export interface User1 {
 })
 export class UserDataComponent implements OnInit {
   @Input() user: User1 | null = null; // Menerima data pengguna dari komponen lain
+  diklatOptions: string[] = [
+    'Mekanik Manufaktur',
+    'Welding Manufaktur',
+    'Desain Manufaktur',
+    'Otomasi Manufaktur',
+    'Underwater Wet Welding'
+  ]; // Daftar opsi jenis diklat
 
   constructor(
     private diklatService: DiklatService,
     @Inject(PLATFORM_ID) private platformId: Object
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
@@ -52,6 +59,53 @@ export class UserDataComponent implements OnInit {
       );
     }
   }
+
+  onJalurPendaftaranChange(): void {
+    if (this.user && this.user.jalur_pendaftaran !== 'Other') {
+      this.user.jalur_pendaftaran_lainnya = ''; // Reset field jika bukan "Lainnya"
+    }
+  }
+
+  onTauDiklatDariChange(): void {
+    if (this.user && this.user.tau_diklat_dari !== 'Lainnya') {
+      this.user.tau_diklat_dari_lainnya = ''; // Reset field jika bukan "Lainnya"
+    }
+  }
+
+  onDiklatChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const value = input.value;
+
+    if (input.checked) {
+      if (this.user && !this.user.jenis_diklat.includes(value)) {
+        this.user.jenis_diklat.push(value);
+      }
+    } else {
+      if (this.user) {
+        const index = this.user.jenis_diklat.indexOf(value);
+        if (index !== -1) {
+          this.user.jenis_diklat.splice(index, 1);
+        }
+      }
+    }
+  }
+
+  onSubmit(form: any): void {
+    if (this.user && form.valid) {
+      this.diklatService.updateDataDiklat(this.user).subscribe(
+        response => {
+          console.log('Data Diklat Berhasil Diperbarui', response);
+          alert('Data Diklat Berhasil Diperbarui'); // Menampilkan alert setelah berhasil diperbarui
+          location.reload(); // Mereload halaman setelah update berhasil
+        },
+        error => {
+          console.error('Error updating profile:', error);
+          alert('Terjadi kesalahan saat memperbarui data.');
+        }
+      );
+    } else {
+      alert('Form tidak valid. Periksa kembali data yang diisi.');
+    }
+  }
 }
 
-  

@@ -8,7 +8,8 @@
       <!-- User input Nama -->
       <div class="form-group">
         <label for="exampleFormControlInput2">Nama</label>
-        <input type="text" #nama="ngModel" [(ngModel)]="userObj.nama" name="nama" class="form-control" id="exampleFormControlInput2" minlength="3" required>
+        <input type="text" #nama="ngModel" [(ngModel)]="userObj.nama" name="nama" class="form-control"
+          id="exampleFormControlInput2" minlength="3" required>
         <div class="text-danger" *ngIf="nama.invalid && (nama.touched || nama.dirty) || isFormSubmited">
           <span class="small-text" *ngIf="nama.errors?.['required']">Wajib diisi</span>
           <span class="small-text" *ngIf="nama.errors?.['minlength']">Minimal 3 Karakter</span>
@@ -18,8 +19,10 @@
       <!-- User input Tempat Lahir -->
       <div class="form-group">
         <label for="exampleFormControlInput3">Tempat Lahir</label>
-        <input type="text" #tempat_lahir="ngModel" [(ngModel)]="userObj.tempat_lahir" name="tempat_lahir" class="form-control" id="exampleFormControlInput3" required>
-        <div class="text-danger" *ngIf="tempat_lahir.invalid && (tempat_lahir.touched || tempat_lahir.dirty) || isFormSubmited">
+        <input type="text" #tempat_lahir="ngModel" [(ngModel)]="userObj.tempat_lahir" name="tempat_lahir"
+          class="form-control" id="exampleFormControlInput3" required>
+        <div class="text-danger"
+          *ngIf="tempat_lahir.invalid && (tempat_lahir.touched || tempat_lahir.dirty) || isFormSubmited">
           <span class="small-text" *ngIf="tempat_lahir.errors?.['required']">Wajib diisi</span>
         </div>
       </div>
@@ -27,8 +30,10 @@
       <!-- User input Tanggal Lahir -->
       <div class="form-group">
         <label for="exampleFormControlInput10">Tanggal Lahir</label>
-        <input type="date" #tanggal_lahir="ngModel" [(ngModel)]="userObj.tanggal_lahir" name="tanggal_lahir" class="form-control" id="exampleFormControlInput10" required>
-        <div class="text-danger" *ngIf="tanggal_lahir.invalid && (tanggal_lahir.touched || tanggal_lahir.dirty) || isFormSubmited">
+        <input type="date" #tanggal_lahir="ngModel" [(ngModel)]="userObj.tanggal_lahir" name="tanggal_lahir"
+          class="form-control" id="exampleFormControlInput10" required>
+        <div class="text-danger"
+          *ngIf="tanggal_lahir.invalid && (tanggal_lahir.touched || tanggal_lahir.dirty) || isFormSubmited">
           <span class="small-text" *ngIf="tanggal_lahir.errors?.['required']">Wajib diisi</span>
         </div>
       </div>
@@ -36,30 +41,34 @@
       <!-- User input NIK -->
       <div class="form-group">
         <label for="exampleFormControlInput4">NIK</label>
-        <input type="text" #nik="ngModel" [(ngModel)]="userObj.nik" name="nik" class="form-control" id="exampleFormControlInput4" minlength="16" maxlength="16" required>
+        <input type="text" #nik="ngModel" [(ngModel)]="userObj.nik" name="nik" class="form-control"
+          id="exampleFormControlInput4" minlength="16" maxlength="16" required>
         <div class="text-danger" *ngIf="nik.invalid && (nik.touched || nik.dirty) || isFormSubmited">
           <span class="small-text" *ngIf="nik.errors?.['required']">Wajib diisi</span>
           <span class="small-text" *ngIf="nik.errors?.['minlength']">Min 16 Karakter</span>
         </div>
       </div>
-      
+
       <!-- User input Usia -->
       <div class="form-group">
         <label for="exampleFormControlInput5">Usia (dalam tahun) </label>
-        <input type="number" #usia="ngModel" [(ngModel)]="userObj.usia" name="usia" class="form-control" id="exampleFormControlInput5" required>
+        <input type="number" #usia="ngModel" [(ngModel)]="userObj.usia" name="usia" class="form-control"
+          id="exampleFormControlInput5" required>
         <div class="text-danger" *ngIf="usia.invalid && (usia.touched || usia.dirty) || isFormSubmited">
           <span class="small-text" *ngIf="usia.errors?.['required']">Wajib diisi</span>
         </div>
       </div>
 
-      <!-- User input Jenis Kelamin -->  
+      <!-- User input Jenis Kelamin -->
       <div class="form-group">
-       <label for="exampleFormControlSelect1">Jenis Kelamin</label>
-       <select class="form-control" #jenis_kelamin="ngModel" [(ngModel)]="userObj.jenis_kelamin" name="jenis_kelamin" id="exampleFormControlSelect1" required>
-        <option value="Laki-laki">Laki-Laki</option>
-        <option value="Perempuan">Perempuan</option>
+        <label for="exampleFormControlSelect1">Jenis Kelamin</label>
+        <select class="form-control" #jenis_kelamin="ngModel" [(ngModel)]="userObj.jenis_kelamin" name="jenis_kelamin"
+          id="exampleFormControlSelect1" required>
+          <option value="Laki-laki">Laki-Laki</option>
+          <option value="Perempuan">Perempuan</option>
         </select>
-        <div class="text-danger" *ngIf="jenis_kelamin.invalid && (jenis_kelamin.touched || jenis_kelamin.dirty) || isFormSubmited">
+        <div class="text-danger"
+          *ngIf="jenis_kelamin.invalid && (jenis_kelamin.touched || jenis_kelamin.dirty) || isFormSubmited">
           <span class="small-text" *ngIf="jenis_kelamin.errors?.['required']">Wajib diisi</span>
         </div>
       </div>
@@ -67,7 +76,8 @@
       <!-- User input Status -->
       <div class="form-group">
         <label for="exampleFormControlSelect2">Status</label>
-        <select class="form-control" #status="ngModel" [(ngModel)]="userObj.status" name="status" id="exampleFormControlSelect2" required>
+        <select class="form-control" #status="ngModel" [(ngModel)]="userObj.status" name="status"
+          id="exampleFormControlSelect2" required>
           <option value="Menikah">Menikah</option>
           <option value="Belum Menikah">Belum Menikah</option>
         </select>
@@ -79,8 +89,10 @@
       <!-- User input Alamat -->
       <div class="form-group">
         <label for="exampleFormControlInput6">Alamat Rumah</label>
-        <input type="text" #alamat_rumah="ngModel" [(ngModel)]="userObj.alamat_rumah" name="alamat_rumah" class="form-control" id="exampleFormControlInput6" required>
-        <div class="text-danger" *ngIf="alamat_rumah.invalid && (alamat_rumah.touched || alamat_rumah.dirty) || isFormSubmited">
+        <input type="text" #alamat_rumah="ngModel" [(ngModel)]="userObj.alamat_rumah" name="alamat_rumah"
+          class="form-control" id="exampleFormControlInput6" required>
+        <div class="text-danger"
+          *ngIf="alamat_rumah.invalid && (alamat_rumah.touched || alamat_rumah.dirty) || isFormSubmited">
           <span class="small-text" *ngIf="alamat_rumah.errors?.['required']">Wajib diisi</span>
         </div>
       </div>
@@ -88,8 +100,10 @@
       <!-- User input Asal sekolah dan isntansi -->
       <div class="form-group">
         <label for="exampleFormControlInput7">Asal Sekolah atau Instansi</label>
-        <input type="text" #asal_sekolah_instansi="ngModel" [(ngModel)]="userObj.asal_sekolah_instansi" name="asal_sekolah_instansi" class="form-control" id="exampleFormControlInput7" required>
-        <div class="text-danger" *ngIf="asal_sekolah_instansi.invalid && (asal_sekolah_instansi.touched || asal_sekolah_instansi.dirty) || isFormSubmited">
+        <input type="text" #asal_sekolah_instansi="ngModel" [(ngModel)]="userObj.asal_sekolah_instansi"
+          name="asal_sekolah_instansi" class="form-control" id="exampleFormControlInput7" required>
+        <div class="text-danger"
+          *ngIf="asal_sekolah_instansi.invalid && (asal_sekolah_instansi.touched || asal_sekolah_instansi.dirty) || isFormSubmited">
           <span class="small-text" *ngIf="asal_sekolah_instansi.errors?.['required']">Wajib diisi</span>
         </div>
       </div>
@@ -97,8 +111,10 @@
       <!-- User input nomor whatsapp -->
       <div class="form-group">
         <label for="exampleFormControlInput8">Nomor WhatsApp</label>
-        <input type="text" #no_wa_aktif="ngModel" [(ngModel)]="userObj.no_wa_aktif" name="no_wa_aktif" class="form-control" id="exampleFormControlInput8" required>
-        <div class="text-danger" *ngIf="no_wa_aktif.invalid && (no_wa_aktif.touched || no_wa_aktif.dirty) || isFormSubmited">
+        <input type="text" #no_wa_aktif="ngModel" [(ngModel)]="userObj.no_wa_aktif" name="no_wa_aktif"
+          class="form-control" id="exampleFormControlInput8" required>
+        <div class="text-danger"
+          *ngIf="no_wa_aktif.invalid && (no_wa_aktif.touched || no_wa_aktif.dirty) || isFormSubmited">
           <span class="small-text" *ngIf="no_wa_aktif.errors?.['required']">Wajib diisi</span>
         </div>
       </div>
@@ -106,8 +122,10 @@
       <!-- User Input No Telp Orang tua -->
       <div class="form-group">
         <label for="exampleFormControlInput9">Nomor Telp. Orang Tua</label>
-        <input type="text" #no_telepon_orang_tua="ngModel" [(ngModel)]="userObj.no_telepon_orang_tua" name="no_telepon_orang_tua" class="form-control" id="exampleFormControlInput9" required>
-        <div class="text-danger" *ngIf="no_telepon_orang_tua.invalid && (no_telepon_orang_tua.touched || no_telepon_orang_tua.dirty) || isFormSubmited">
+        <input type="text" #no_telepon_orang_tua="ngModel" [(ngModel)]="userObj.no_telepon_orang_tua"
+          name="no_telepon_orang_tua" class="form-control" id="exampleFormControlInput9" required>
+        <div class="text-danger"
+          *ngIf="no_telepon_orang_tua.invalid && (no_telepon_orang_tua.touched || no_telepon_orang_tua.dirty) || isFormSubmited">
           <span class="small-text" *ngIf="no_telepon_orang_tua.errors?.['required']">Wajib diisi</span>
         </div>
       </div>
@@ -115,46 +133,50 @@
       <!-- User Input Jalur Pendaftaran -->
       <div class="form-group">
         <label for="exampleFormControlSelect3">Jalur Pendaftaran</label>
-        <select class="form-control" #jalur_pendaftaran="ngModel" [(ngModel)]="userObj.jalur_pendaftaran" name="jalur_pendaftaran" id="exampleFormControlSelect3" required> 
+        <select class="form-control" #jalur_pendaftaran="ngModel" [(ngModel)]="userObj.jalur_pendaftaran"
+          name="jalur_pendaftaran" id="exampleFormControlSelect3" required>
           <option value="APBN">APBN</option>
           <option value="APBD">APBD</option>
           <option value="Mandiri">Mandiri</option>
           <option value="Other">Lainnya</option>
         </select>
-        <div class="text-danger" *ngIf="jalur_pendaftaran.invalid && (jalur_pendaftaran.touched || jalur_pendaftaran.dirty) || isFormSubmited">
+        <div class="text-danger"
+          *ngIf="jalur_pendaftaran.invalid && (jalur_pendaftaran.touched || jalur_pendaftaran.dirty) || isFormSubmited">
           <span class="small-text" *ngIf="jalur_pendaftaran.errors?.['required']">Wajib diisi</span>
         </div>
       </div>
 
       <div *ngIf="userObj.jalur_pendaftaran === 'Other'">
         <label for="customjalur_pendaftaran_lainnya">Masukkan Jalur Pendaftaran Lainnya</label>
-        <input type="text" [(ngModel)]="userObj.jalur_pendaftaran_lainnya" name="jalur_pendaftaran_lainnya" class="form-control" id="customJalurPendaftaran" required>
+        <input type="text" [(ngModel)]="userObj.jalur_pendaftaran_lainnya" name="jalur_pendaftaran_lainnya"
+          class="form-control" id="customJalurPendaftaran" required>
       </div>
 
       <!-- User input Jenis Diklat -->
       <div class="form-group mt-3">
-        <label for="exampleFormControlSelect4">Jenis Diklat</label>
-        <select class="form-control" #jenis_diklat="ngModel" [(ngModel)]="userObj.jenis_diklat" name="jenis_diklat" id="exampleFormControlSelect4"  required>
-          <option value="Mekanik Manufaktur">Mekanik Manufaktur</option>
-          <option value="Welding Manufaktur">Welding Manufaktur</option>
-          <option value="Desain Manufaktur">Desain Manufaktur</option>
-          <option value="Otomasi Manufaktur">Otomasi Manufaktur</option>
-          <option value="Underwater Wet Welding">Underwater Wet Welding</option>
-        </select>
-        <div class="text-danger" *ngIf="jenis_diklat.invalid && (jenis_diklat.touched || jenis_diklat.dirty) || isFormSubmited">
-          <span class="small-text" *ngIf="jenis_diklat.errors?.['required']">Wajib diisi</span>
+        <label>Jenis Diklat</label>
+        <div *ngFor="let jenis of jenisDiklatOptions">
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" [id]="jenis" [value]="jenis" [checked]="userObj.jenis_diklat.includes(jenis)"
+              (change)="onJenisDiklatChange($event, jenis)" />
+            <label class="form-check-label" [for]="jenis">{{ jenis }}</label>
+          </div>
+        </div>
+        <div class="text-danger" *ngIf="jenisDiklatError">
+          <span class="small-text">Pilih setidaknya satu jenis diklat</span>
         </div>
       </div>
-      
+
       <!-- User input sumber informasi -->
       <div class="form-group mt-3">
         <label for="exampleFormControlSelect5">Sumber Informasi Diklat</label>
-        <select class="form-control" [(ngModel)]="userObj.tau_diklat_dari" name="tau_diklat_dari" id="exampleFormControlSelect5" required>
+        <select class="form-control" [(ngModel)]="userObj.tau_diklat_dari" name="tau_diklat_dari"
+          id="exampleFormControlSelect5" required>
           <option value="Instagram">Instagram</option>
-          <option value="WhatsApp">WhatsApp</option>
+          <option value="Whatsapp">WhatsApp</option>
           <option value="Website">Website</option>
           <option value="Sosialisasi">Sosialisasi</option>
-          <option value="Brosur/Pamflet">Brosur/Pamflet</option>
+          <option value="BrosurPamflet">Brosur/Pamflet</option>
           <option value="Baliho">Baliho</option>
           <option value="Sekolah">Sekolah</option>
           <option value="Keluarga">Keluarga</option>
@@ -165,7 +187,8 @@
 
       <div *ngIf="userObj.tau_diklat_dari === 'Lainnya'" class="mb-3">
         <label for="tau_diklat_dari_lainnya">Masukkan Sumber Informasi Diklat Lainnya</label>
-        <input type="text" [(ngModel)]="userObj.tau_diklat_dari_lainnya" name="tau_diklat_dari_lainnya" class="form-control" id="tau_diklat_dari_lainnya" required>
+        <input type="text" [(ngModel)]="userObj.tau_diklat_dari_lainnya" name="tau_diklat_dari_lainnya"
+          class="form-control" id="tau_diklat_dari_lainnya" required>
       </div>
 
       <!-- Tombol Submit pendaftaran -->

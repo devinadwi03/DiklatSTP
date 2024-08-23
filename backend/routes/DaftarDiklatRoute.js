@@ -34,7 +34,7 @@ router.get('/check-registration-status', async (req, res) => {
 router.get('/loadAll-daftar-diklat', adminOnly, getPendaftar); // Admin can view all
 router.get('/load-daftar-diklat', isUserOrAdmin, getPendaftarById); // Admin or user can view specific record
 router.post('/daftar-diklat', createRegistrasi); // Any authenticated user can create their own
-router.patch('/update-daftar-diklat/:id', isUserOrAdmin, updateRegistrasi); // Admin or user can update their own
-router.delete('/delete-daftar-diklat/:id', isUserOrAdmin, deleteRegistrasi); // Admin or user can delete their own
+router.put('/update-daftar-diklat', isUserOrAdmin, updateRegistrasi); // Admin or user can update their own
+router.delete('/delete-daftar-diklat', isUserOrAdmin, deleteRegistrasi); // Admin or user can delete their own
 
 export default router;
