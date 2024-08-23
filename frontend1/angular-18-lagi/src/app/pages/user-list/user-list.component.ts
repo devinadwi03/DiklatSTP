@@ -1,17 +1,32 @@
 import { Component, OnInit } from '@angular/core';
+//import { UserService } from '../../service/user.service';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http'; 
+import { HttpClientModule } from '@angular/common/http'; // Pastikan ini ditambahkan
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
-import { AuthService } from '../../services/auth.service'; // Import UserService
+import { DiklatService } from '../../services/diklat.service';
 
+// Interface untuk mendefinisikan struktur User
 export interface User {
   id: number;
-  username: string;
-  email: string;
-  first_name: string;
-  last_name: string;
-  role: string;
+  emailId: string;
+  nama: string;
+  tempat_lahir: string;
+  tanggal_lahir: string;
+  nik: string;
+  usia: string;
+  jenis_kelamin: string;
+  status: string;
+  alamat_rumah: string;
+  asal_sekolah_instansi: string;
+  no_wa_aktif: string;
+  no_telpon_orang_tua: string;
+  jalur_pendaftaran: string;
+  jalur_pendaftaran_lainnya: string;
+  jenis_diklat: string;
+  tau_diklat_dari: string;
+  tau_diklat_dari_lainnya: string;
+  level: number;
 }
 
 @Component({
@@ -24,12 +39,12 @@ export interface User {
 export class UserListComponent implements OnInit {
   users: User[] = [];
 
-  constructor(private AuthService: AuthService) {} // Inject UserService
+  constructor(private diklatService: DiklatService) {} // Inject DiklatService
 
   ngOnInit(): void {
-    this.AuthService.getUsers().subscribe((data: User[]) => {
+    this.diklatService.getPendaftar().subscribe((data: User[]) => {
       this.users = data;
-      console.log('Users loaded:', this.users);
+      console.log('Users loaded:', this.users); // Menampilkan data di konsol
     });
   }
 

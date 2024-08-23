@@ -128,5 +128,5 @@ POST http://localhost:5000/resend-verification-email
 Content-Type: application/json
 
 {
-    "email": "berkashandphone@gmail.com"
+    "email": "jyparkv001@gmail.com"
 }
