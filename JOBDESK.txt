@@ -1,22 +1,23 @@
-(DONE) * Membuat Guard Role - TINGGAL SESUAIKAN PAGE
+* Biar dirinya bisa delete pendaftaran
+* Fungsi Logout setelah 30 menit tidak ada aktivitas
+* Integrasi navbar
 * Mengarahkan user ke form daftar diklat setelah login (sementara)
 * Mengarahkan admin ke list pendaftar diklat 
-(DONE) * Setelah daftar diarahkan ke user-data
-(DONE) * Aturan form daftar diklat tidak boleh dibuka oleh yang sudah daftar
 * Integrasi front&back tampil data akun pemilik
-(DONE) * Integrasi front&back tampil list akun u/ admin
-(DONE) * Integrasi front&back edit data pendaftar
 * Integrasi front&back edit data akun pemilik
 * Integrasi front&back ganti password manual
 * Integrasi front&back lupa password
 * Integrasi front&back ganti password setelah lupa password
-* Fungsi Logout setelah 30 menit tidak ada aktivitas
+(DONE) * Membuat Guard Role - TINGGAL SESUAIKAN PAGE
+(DONE) * Setelah daftar diarahkan ke user-data
+(DONE) * Aturan form daftar diklat tidak boleh dibuka oleh yang sudah daftar
+(DONE) * Integrasi front&back tampil list akun u/ admin
+(DONE) * Integrasi front&back edit data pendaftar
 (DONE) * Ngebenerin biar jenis diklat jadi checkbox
 (DONE) * Ngebenerin tipe input di user-data buat update
-* Integrasi navbar
-* Ngebenerin FORMAT EXCEL dari daftardiklat-list
-* Ngebenerin FORMAT EXCEL dari userlist
-* Biar dirinya bisa delete pendaftaran
+(DONE) * Ngebenerin FORMAT EXCEL dari daftardiklat-list
+(DONE) * Ngebenerin FORMAT EXCEL dari userlist
+
 
 Front Page yang belum ada di aku:
 * navbar user

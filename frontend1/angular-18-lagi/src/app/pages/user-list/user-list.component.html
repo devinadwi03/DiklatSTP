@@ -12,7 +12,7 @@
       <thead>
         <tr>
           <th>No</th>
-          <th>Email ID</th>
+          <th>ID</th>
           <th>Nama</th>
           <th>Tempat Lahir</th>
           <th>Tanggal Lahir</th>
@@ -29,14 +29,13 @@
           <th>Jenis Diklat</th>
           <th>Tahu Diklat Dari Mana</th>
           <th>Tahu Diklat Dari Mana Lainnya</th>
-          <th>Level</th>
           <th>Actions</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let user of users; let i = index">
           <td>{{ i + 1 }}</td>
-          <td>{{ user.emailId }}</td>
+          <td>{{ user.id }}</td>
           <td>{{ user.nama }}</td>
           <td>{{ user.tempat_lahir }}</td>
           <td>{{ user.tanggal_lahir }}</td>
@@ -53,7 +52,6 @@
           <td>{{ user.jenis_diklat }}</td>
           <td>{{ user.tau_diklat_dari }}</td>
           <td>{{ user.tau_diklat_dari_lainnya }}</td>
-          <td>{{ user.level == 1 ? 'Admin' : 'Siswa' }}</td>
           <td>
             <button class="btn btn-warning btn-sm me-2" (click)="editUser(user.id)">Edit</button>
             <button class="btn btn-danger-custom btn-sm" *ngIf="user.level == 2" (click)="deleteUser(user.id)">Delete</button>
