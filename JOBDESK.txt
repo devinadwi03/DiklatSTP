@@ -1,6 +1,6 @@
 (DONE) * Biar dirinya bisa delete pendaftaran
 * Fungsi Logout setelah 30 menit tidak ada aktivitas
-* Integrasi navbar
+(DONE) * Integrasi navbar
 (DONE) * Page Menu betulkan
 (DONE) * Tambahkan aturan di kolom input reset-password
 (DONE) * Menambah fungsi add admin oleh admin

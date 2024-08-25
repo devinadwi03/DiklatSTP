@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';  // Import Router
 import { HttpClient } from '@angular/common/http';
+import { AuthService } from '../../services/auth.service'; // Import AuthService
 
 @Component({
   selector: 'app-change-password',
@@ -20,7 +21,11 @@ export class ChangePwdComponent {
 
   passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
-  constructor(private http: HttpClient, private router: Router) { }  // Inject Router
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private authService: AuthService  // Injeksikan AuthService
+  ) { }
 
   updatePassword() {
     this.http.put('/update-password', {
@@ -30,7 +35,7 @@ export class ChangePwdComponent {
     }).subscribe(
       (response: any) => {
         alert(response.msg || 'Password berhasil diperbarui');
-        this.router.navigate(['/user-account']);  // Navigasi ke halaman user-account
+        this.redirectBasedOnRole();
       },
       (error) => {
         alert(error.error.msg || 'Terjadi kesalahan saat memperbarui password');
@@ -39,8 +44,22 @@ export class ChangePwdComponent {
     );
   }
 
+  // Metode untuk redirect berdasarkan role pengguna
+  redirectBasedOnRole() {
+    this.authService.getUserRole().subscribe(role => {
+      if (role === 'admin') {
+        this.router.navigate(['/user-account-admin']); // Navigasi untuk admin
+      } else {
+        this.router.navigate(['/user-account']); // Navigasi untuk user
+      }
+    });
+  }
+
   // Metode untuk navigasi ke halaman user-account
   navigateToUserAccount() {
-    this.router.navigate(['/user-account']);
+    this.redirectBasedOnRole();
   }
 }
+
+
+

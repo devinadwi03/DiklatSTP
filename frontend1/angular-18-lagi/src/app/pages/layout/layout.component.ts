@@ -16,6 +16,20 @@ export class LayoutComponent {
   authService = inject(AuthService);
   router = inject(Router);
 
+  ngOnInit(): void {}
+
+ navigateToUserAccount() {
+    this.router.navigate(['/user-account-admin']);
+  }
+
+  navigateToAccount() {
+    this.router.navigate(['/account-list']);
+  }
+
+  navigateToRegister() {
+    this.router.navigate(['/user-list']);
+  }
+
   logout() {
     this.authService.logout().subscribe(
       () => {

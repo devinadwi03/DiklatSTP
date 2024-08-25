@@ -1,0 +1,28 @@
+<nav class="navbar navbar-expand-sm" style="background-color: #F5F3F4;" *ngIf="isLogin">
+  <div class="container-fluid">
+    <a class="navbar-brand text-dark">Selamat Datang, User!</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link text-dark fw-bold" (click)="navigateToHome()">Beranda</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-dark fw-bold" (click)="navigateToUserAccount()">Profil</a>
+        </li>
+        <li class="nav-item" *ngIf="isRegistered">
+          <a class="nav-link text-dark fw-bold" (click)="navigateToRegister()">Data Diklat</a>
+        </li>
+        <li class="nav-item" *ngIf="!isRegistered">
+          <a class="nav-link text-dark fw-bold" (click)="navigateToRegister()">Daftar Diklat</a>
+        </li>
+        <li class="nav-item">
+          <button class="btn btn-dark btn-md logout-btn" (click)="logout()">Log Out</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<router-outlet></router-outlet>

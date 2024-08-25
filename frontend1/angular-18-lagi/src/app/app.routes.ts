@@ -16,6 +16,7 @@ import { RoleGuard } from './guards/role.guard';
 import { RegistrationGuard } from './guards/registration.guard';
 import { AddAdminComponent } from './pages/add-admin/add-admin.component';
 import { MenuComponent } from './pages/menu/menu.component';
+import { LayoutUserComponent } from './pages/layout-user/layout-user.component';
 
 export const routes: Routes = [
   {
@@ -27,65 +28,9 @@ export const routes: Routes = [
     path: 'login',
     component: LoginComponent
   },
-  { 
+  {
     path: 'register',
     component: LoginComponent,
-    canActivate: [RoleGuard], 
-    data: { expectedRole: 'user' } // Hanya user yang bisa mendaftar
-  },
-  {
-    path: '',
-    component: LayoutComponent,
-    canActivate: [AuthGuard], // Pastikan AuthGuard diterapkan di sini
-    children: [
-      {
-        path: 'templateFormValidation',
-        component: TemplateFormValidationComponent,
-        canActivate: [RoleGuard, RegistrationGuard],
-        data: { expectedRole: 'user' } // Hanya user yang bisa mendaftar
-      },
-      {
-        path: 'user-list',
-        component: UserListComponent,
-        canActivate: [RoleGuard],
-        data: { expectedRole: 'admin' } // Hanya admin yang bisa lihat semua pendaftar
-      },
-      {
-        path: 'user-data',
-        component: UserDataComponent,
-        canActivate: [RoleGuard, RegistrationGuard],
-        data: { expectedRole: 'user' } // Hanya user yang bisa update data
-      },
-      {
-        path: 'account-list',
-        component: AccountListComponent,
-        canActivate: [RoleGuard],
-        data: { expectedRole: 'admin' } // Hanya admin yang bisa lihat semua pendaftar
-      },
-      {
-        path: 'add-admin',
-        component: AddAdminComponent,
-        canActivate: [RoleGuard],
-        data: { expectedRole: 'admin' } // Hanya admin yang bisa lihat semua pendaftar
-      },
-      {
-        path: 'user-account',
-        component: UserAccountComponent
-      },
-      {
-        path: 'change-pwd',
-        component: ChangePwdComponent
-      },
-      {
-        path: 'home',
-        component: MenuComponent
-      },
-      {
-        path: '**',
-        redirectTo: 'dashboard' // Rute wildcard untuk menangani rute yang tidak ditemukan
-      }
-      // Tambahkan rute anak lainnya di sini
-    ]
   },
   {
     path: 'activation/:token',
@@ -98,5 +43,88 @@ export const routes: Routes = [
   {
     path: 'reset-password/:token',
     component: ChangePwdForgotComponent
-  }
+  },
+  
+ // Layout Admin
+ {
+  path: 'admin', // Path baru untuk layout admin
+  component: LayoutComponent,
+  canActivate: [AuthGuard, RoleGuard],
+  data: { expectedRole: 'admin' },
+  children: [
+    { path: 'user-list', component: UserListComponent },
+    { path: 'account-list', component: AccountListComponent },
+    { path: 'add-admin', component: AddAdminComponent },
+    { path: 'user-account-admin', component: UserAccountComponent },
+    { path: 'change-pwd-admin', component: ChangePwdComponent },
+    { path: '**', redirectTo: 'account-list' }
+  ]
+},
+// Alias rute untuk rute lama
+{
+  path: 'user-list',
+  redirectTo: 'admin/user-list',
+  pathMatch: 'full'
+},
+{
+  path: 'account-list',
+  redirectTo: 'admin/account-list',
+  pathMatch: 'full'
+},
+{
+  path: 'add-admin',
+  redirectTo: 'admin/add-admin',
+  pathMatch: 'full'
+},
+{
+  path: 'user-account-admin',
+  redirectTo: 'admin/user-account-admin',
+  pathMatch: 'full'
+},
+{
+  path: 'change-pwd-admin',
+  redirectTo: 'admin/change-pwd-admin',
+  pathMatch: 'full'
+},
+// Layout User
+{
+  path: 'user', // Path baru untuk layout user
+  component: LayoutUserComponent,
+  canActivate: [AuthGuard, RoleGuard],
+  data: { expectedRole: 'user' },
+  children: [
+    { path: 'templateFormValidation', component: TemplateFormValidationComponent, canActivate: [RegistrationGuard] },
+    { path: 'user-data', component: UserDataComponent, canActivate: [RegistrationGuard] },
+    { path: 'user-account', component: UserAccountComponent },
+    { path: 'change-pwd', component: ChangePwdComponent },
+    { path: 'home', component: MenuComponent },
+    { path: '**', redirectTo: 'home' }
+  ]
+},
+// Alias rute untuk rute lama
+{
+  path: 'templateFormValidation',
+  redirectTo: 'user/templateFormValidation',
+  pathMatch: 'full'
+},
+{
+  path: 'user-data',
+  redirectTo: 'user/user-data',
+  pathMatch: 'full'
+},
+{
+  path: 'user-account',
+  redirectTo: 'user/user-account',
+  pathMatch: 'full'
+},
+{
+  path: 'change-pwd',
+  redirectTo: 'user/change-pwd',
+  pathMatch: 'full'
+},
+{
+  path: 'home',
+  redirectTo: 'user/home',
+  pathMatch: 'full'
+}
 ];

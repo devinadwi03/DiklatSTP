@@ -1,0 +1,36 @@
+.text-white {
+    color: #BA181B !important;
+  }
+  .navbar {
+    background-color: #F5F3F4; /* Warna navbar yang baru */
+  }
+  .navbar-nav .nav-link.active {
+    color: #BA181B !important;
+  }
+  .logout-btn {
+    background-color: #BA181B; 
+    color: #F5F3F4; 
+  }
+  .navbar-brand {
+    margin-left: auto; 
+    margin-right: 20px; 
+  }
+  .nav-link {
+    pointer-events: auto; 
+  }
+  .nav-link {
+    pointer-events: auto; 
+    cursor: pointer;
+  }
+  
+  .logout-btn {
+    cursor: pointer;
+  }
+  
+  @media (max-width: 768px) {
+    .container-fluid {
+      padding: 0 10px;
+    }
+  }
+  
+  

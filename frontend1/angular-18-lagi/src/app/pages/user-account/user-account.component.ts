@@ -60,6 +60,14 @@ export class UserAccountComponent implements OnInit {
   }
 
   navigateToChangePassword() {
-    this.router.navigateByUrl('/change-pwd');
+    this.authService.getUserRole().subscribe(userRole => {
+      if (userRole === 'admin') {
+        this.router.navigateByUrl('change-pwd-admin');
+      } else if (userRole === 'user') {
+        this.router.navigateByUrl('change-pwd');
+      } else {
+        alert('Role tidak dikenal');
+      }
+    })
   }
 }

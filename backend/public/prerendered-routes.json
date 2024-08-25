@@ -1,16 +1,19 @@
 {
   "routes": [
-    "/",
-    "/account-list",
-    "/add-admin",
-    "/change-pwd",
+    "/admin",
+    "/admin/account-list",
+    "/admin/add-admin",
+    "/admin/change-pwd-admin",
+    "/admin/user-account-admin",
+    "/admin/user-list",
     "/forgot-pwd",
-    "/home",
     "/login",
     "/register",
-    "/templateFormValidation",
-    "/user-account",
-    "/user-data",
-    "/user-list"
+    "/user",
+    "/user/change-pwd",
+    "/user/home",
+    "/user/templateFormValidation",
+    "/user/user-account",
+    "/user/user-data"
   ]
 }
