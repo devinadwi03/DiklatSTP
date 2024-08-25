@@ -1,0 +1,21 @@
+h2 {
+    color: #BA181B;
+    font-weight: bold;
+  }
+  
+h3 {
+    color: #BA181B;
+    margin-top: 20px;
+  }
+  
+  .btn-primary {
+    background-color: #BA181B;
+    border-color: #BA181B;
+    color: #FFFFFF;
+  }
+  
+  .btn-primary:hover {
+    background-color: #9E1516;
+    border-color: #9E1516;
+  }
+  

@@ -6,7 +6,7 @@ import { TemplateFormValidationComponent } from './topics/template-form-validati
 import { UserListComponent } from './pages/user-list/user-list.component';
 import { UserDataComponent } from './pages/user-data/user-data.component';
 import { AccountListComponent } from './pages/account-list/account-list.component';
-//import { UserAccountComponent } from './pages/user-account/user-account.component';
+import { UserAccountComponent } from './pages/user-account/user-account.component';
 import { ActivationComponent } from './activation/activation.component';
 import { AuthGuard } from './guards/auth.guards'; // Sesuaikan path sesuai kebutuhan
 import { RoleGuard } from './guards/role.guard';
@@ -57,10 +57,10 @@ export const routes: Routes = [
         canActivate: [RoleGuard],
         data: { expectedRole: 'admin' } // Hanya admin yang bisa lihat semua pendaftar
       },
-      //{
-        //path: 'user-account',
-        //component: UserAccountComponent
-      //},
+      {
+        path: 'user-account',
+        component: UserAccountComponent
+      },
       {
         path: '**',
         redirectTo: 'dashboard' // Rute wildcard untuk menangani rute yang tidak ditemukan

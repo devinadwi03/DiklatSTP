@@ -158,4 +158,24 @@ export class AuthService {
       })
     );
   }
+  
+  // Metode untuk mengambil data user berdasarkan ID
+  getUserById(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/getUserById`, { withCredentials: true }).pipe(
+      catchError((error: HttpErrorResponse) => {
+        console.error('Error fetching user by ID:', error);
+        return throwError(() => error);
+      })
+    );
+  }
+
+  // Metode untuk memperbarui data user
+  updateUser(userdata: any): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/updateUser`, userdata, { withCredentials: true }).pipe(
+      catchError((error: HttpErrorResponse) => {
+        console.error('Error updating user:', error);
+        return throwError(() => error);
+      })
+    );
+  }
 }

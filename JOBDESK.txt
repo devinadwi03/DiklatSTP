@@ -3,8 +3,8 @@
 * Integrasi navbar
 (SEMENTARA DONE) * Mengarahkan user ke form daftar diklat setelah login (sementara)
 (SEMENTARA DONE) * Mengarahkan admin ke list pendaftar diklat 
-* Integrasi front&back tampil data akun pemilik
-* Integrasi front&back edit data akun pemilik
+(DONE) * Integrasi front&back tampil data akun pemilik
+(DONE) * Integrasi front&back edit data akun pemilik
 * Integrasi front&back ganti password manual
 * Integrasi front&back lupa password
 * Integrasi front&back ganti password setelah lupa password

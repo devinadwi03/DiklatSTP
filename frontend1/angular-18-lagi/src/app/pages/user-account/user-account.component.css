@@ -1,0 +1,74 @@
+/* Mengatur background untuk seluruh halaman */
+html, body {
+    height: 100%; /* Memastikan html dan body memenuhi tinggi viewport */
+    margin: 0; /* Menghapus margin default */
+    padding: 0; /* Menghapus padding default */
+    background-color: rgb(186, 24, 27); /* Warna latar belakang merah */
+    overflow-x: hidden; /* Menghindari scroll horizontal */
+}
+
+/* Mengatur container utama */
+.container-custom {
+    margin-top: 100px; /* Margin atas sesuai dengan kebutuhan */
+    padding: 20px; /* Tambahkan padding jika diperlukan */
+}
+
+/* Mengatur tombol dengan lebar penuh */
+.profile-button {
+    width: 100%;
+}
+
+/* Styling tombol merah */
+.btn-red {
+    background-color: #BF0A30;
+    color: #FFFFFF; /* Warna teks putih untuk kontras */
+}
+
+/* Styling untuk bagian yang memenuhi tinggi layar */
+.vh-100 {
+    height: 100vh !important; /* Memastikan bagian ini memenuhi tinggi layar */
+}
+
+/* Styling fokus untuk input form */
+.form-control:focus {
+    box-shadow: none;
+    border-color: #BA181B;
+}
+
+/* Styling tombol profil */
+.profile-button {
+    background: #BA181B;
+    box-shadow: none;
+    border: none;
+}
+
+/* Warna latar belakang tombol profil saat hover */
+.profile-button:hover,
+.profile-button:focus,
+.profile-button:active {
+    background: #BF0A30; /* Ubah warna saat interaksi */
+    box-shadow: none;
+}
+
+/* Styling link kembali saat hover */
+.back:hover {
+    color: #BA181B;
+    cursor: pointer;
+}
+
+/* Styling label dengan ukuran font kecil */
+.labels {
+    font-size: 11px;
+}
+
+/* Styling tombol kustom */
+.custom-button {
+    background-color: #BA181B !important; 
+    border-color: #BA181B !important; 
+    color: white; 
+}
+
+/* Styling teks kecil */
+.small-text {
+    font-size: 0.75rem; /* Ukuran font lebih kecil */
+}

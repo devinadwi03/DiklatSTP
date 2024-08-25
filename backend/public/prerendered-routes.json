@@ -5,6 +5,7 @@
     "/login",
     "/register",
     "/templateFormValidation",
+    "/user-account",
     "/user-data",
     "/user-list"
   ]

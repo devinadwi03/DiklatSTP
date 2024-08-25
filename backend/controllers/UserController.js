@@ -140,37 +140,41 @@ export const createUser = async (req, res) => {
 
 // Fungsi untuk memperbarui data pengguna
 export const updateUser = async (req, res) => {
-    const { id } = req.params;
-    const updateData = req.body;
+    const updateData = req.body; // Data yang akan diperbarui berasal dari body request
 
     // Validasi data
-    const { message, data } = await dataValid(
+    const { message } = await dataValid(
         {
             username: "required",
             email: "required,isEmail",
             first_name: "required",
             last_name: "required"
         },
-        req.body
+        updateData
     );
 
     if (message.length > 0) {
-        return res.status(400).json({ msg: message.join(", ") });
+        return res.status(400).json({ msg: message.join(", ") }); // Jika ada pesan kesalahan, kembalikan respons 400
     }
 
     try {
         const userId = req.user.userId; // Ambil userId dari token yang terverifikasi
-        if (parseInt(id) !== userId) {
-            return res.status(403).json({ msg: "Akses terlarang" });
+
+        const user = await User.findOne({ where: { id: userId } }); // Cari pengguna berdasarkan userId dari token
+
+        // Periksa apakah pengguna ada
+        if (!user) {
+            return res.status(404).json({ msg: "Pengguna tidak ditemukan" }); // Kembalikan respons 404 jika pengguna tidak ditemukan
         }
 
+        // Perbarui data pengguna
         await User.update(updateData, {
             where: { id: userId }
         });
 
-        res.status(200).json({ msg: "Pengguna berhasil diperbarui" });
+        res.status(200).json({ msg: "Pengguna berhasil diperbarui" }); // Kembalikan respons sukses 200
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json({ error: error.message }); // Tangani kesalahan dengan mengembalikan respon 500
     }
 };
 
