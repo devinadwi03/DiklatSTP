@@ -24,7 +24,15 @@
                     <div class="pt-1 mb-4">
                       <button (click)="onLogin()" class="btn btn-dark btn-lg btn-block btn-red" type="button">Masuk</button>
                     </div>
-                    <p class="mb-5 pb-lg-2">Belum memiliki akun? <a href="javascript:void(0);" (click)="isLoginView=false">Daftar disini</a></p>
+                    <!-- Lupa password dan belum punya akun -->
+                    <div class="d-flex justify-content-between mb-5 pb-lg-2">
+                      <p>Belum memiliki akun? 
+                        <a href="javascript:void(0);" (click)="isLoginView=false">Daftar disini</a>
+                      </p>
+                      <p>
+                        <a href="javascript:void(0);" (click)="onForgotPassword()">Lupa Password?</a>
+                      </p>
+                    </div>
                   </div>
 
                   <!-- Registration Form -->

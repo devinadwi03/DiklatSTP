@@ -58,4 +58,8 @@ export class UserAccountComponent implements OnInit {
       }
     );
   }
+
+  navigateToChangePassword() {
+    this.router.navigateByUrl('/change-pwd');
+  }
 }

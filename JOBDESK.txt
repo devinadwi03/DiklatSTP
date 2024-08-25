@@ -1,13 +1,14 @@
 (DONE) * Biar dirinya bisa delete pendaftaran
 * Fungsi Logout setelah 30 menit tidak ada aktivitas
 * Integrasi navbar
+* Tambahkan aturan di kolom input reset-password
 (SEMENTARA DONE) * Mengarahkan user ke form daftar diklat setelah login (sementara)
 (SEMENTARA DONE) * Mengarahkan admin ke list pendaftar diklat 
 (DONE) * Integrasi front&back tampil data akun pemilik
 (DONE) * Integrasi front&back edit data akun pemilik
-* Integrasi front&back ganti password manual
-* Integrasi front&back lupa password
-* Integrasi front&back ganti password setelah lupa password
+(DONE) * Integrasi front&back ganti password manual
+(DONE) * Integrasi front&back lupa password
+(DONE) * Integrasi front&back ganti password setelah lupa password
 (DONE) * Membuat Guard Role - TINGGAL SESUAIKAN PAGE
 (DONE) * Setelah daftar diarahkan ke user-data
 (DONE) * Aturan form daftar diklat tidak boleh dibuka oleh yang sudah daftar

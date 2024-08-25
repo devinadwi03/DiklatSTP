@@ -6,53 +6,32 @@
           <div class="row g-2">
             <div class="col-12 d-flex align-items-center">
               <div class="card-body p-4 p-lg-5 text-black">
-                <!-- Ubah Password Manual -->
-                <div *ngIf="isForgotPasswordView">
-                  <h3 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Lupa Password</h3>
-                  <form>
-                    <div class="form-outline mb-3">
-                      <label class="form-label" for="newPassword">Password Baru</label>
-                      <input [(ngModel)]="forgotPassword.newPassword" name="newPassword" type="password" id="newPassword" class="form-control form-control-lg" required/>
+                <h3 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Ganti Password Manual</h3>
+                <form>
+                  <div class="form-outline mb-3">
+                    <label class="form-label" for="oldPassword">Password Lama</label>
+                    <input [(ngModel)]="manualChangePassword.oldPassword" name="oldPassword" type="password" id="oldPassword" class="form-control form-control-lg" required/>
+                  </div>
+                  <div class="form-outline mb-3">
+                    <label class="form-label" for="newPassword">Password Baru</label>
+                    <input [(ngModel)]="manualChangePassword.newPassword" name="newPassword" type="password" id="newPassword" class="form-control form-control-lg" required/>
+                    <div *ngIf="manualChangePassword.newPassword && !passwordPattern.test(manualChangePassword.newPassword)" class="text-danger mt-1">
+                      <span class="small-text">Password harus memiliki setidaknya 8 karakter, 1 huruf besar, 1 huruf kecil, 1 angka, dan 1 simbol.</span>
                     </div>
-                    <div class="form-outline mb-3">
-                      <label class="form-label" for="confirmNewPassword">Konfirmasi Password Baru</label>
-                      <input [(ngModel)]="forgotPassword.confirmNewPassword" name="confirmNewPassword" type="password" id="confirmNewPassword" class="form-control form-control-lg" required/>
+                  </div>
+                  <div class="form-outline mb-3">
+                    <label class="form-label" for="confirmNewPassword">Konfirmasi Password Baru</label>
+                    <input [(ngModel)]="manualChangePassword.confirmNewPassword" name="confirmNewPassword" type="password" id="confirmNewPassword" class="form-control form-control-lg" required/>
+                    <div *ngIf="manualChangePassword.confirmNewPassword && manualChangePassword.confirmNewPassword !== manualChangePassword.newPassword" class="text-danger mt-1">
+                      <span class="small-text">Password konfirmasi tidak cocok.</span>
                     </div>
-                    <div class="pt-1 mb-3">
-                      <button (click)="sendToken()" class="btn btn-red btn-lg btn-block" type="button">Kirim Token</button>
-                    </div>
-                    <p class="mb-4 pb-lg-2">Ganti password manual? <a href="javascript:void(0);" (click)="switchToManualChangePassword()">Ganti di sini</a></p>
-                  </form>
-                </div>
-
-                <!-- Section for Manual Password Change -->
-                <div *ngIf="isManualChangePasswordView">
-                  <h3 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Ganti Password Manual</h3>
-                  <form>
-                    <div class="form-outline mb-3">
-                      <label class="form-label" for="oldPassword">Password Lama</label>
-                      <input [(ngModel)]="manualChangePassword.oldPassword" name="oldPassword" type="password" id="oldPassword" class="form-control form-control-lg" required/>
-                    </div>
-                    <div class="form-outline mb-3">
-                      <label class="form-label" for="newPassword">Password Baru</label>
-                      <input [(ngModel)]="manualChangePassword.newPassword" name="newPassword" type="password" id="newPassword" class="form-control form-control-lg" required/>
-                      <div *ngIf="manualChangePassword.newPassword && !passwordPattern.test(manualChangePassword.newPassword)" class="text-danger mt-1">
-                        <span class="small-text">Password harus memiliki setidaknya 8 karakter, 1 huruf besar, 1 huruf kecil, 1 angka, dan 1 simbol.</span>
-                      </div>
-                    </div>
-                    <div class="form-outline mb-3">
-                      <label class="form-label" for="confirmNewPassword">Konfirmasi Password Baru</label>
-                      <input [(ngModel)]="manualChangePassword.confirmNewPassword" name="confirmNewPassword" type="password" id="confirmNewPassword" class="form-control form-control-lg" required/>
-                      <div *ngIf="manualChangePassword.confirmNewPassword && manualChangePassword.confirmNewPassword !== manualChangePassword.newPassword" class="text-danger mt-1">
-                        <span class="small-text">Password konfirmasi tidak cocok.</span>
-                      </div>
-                    </div>
-                    <div class="pt-1 mb-3">
-                      <button (click)="updatePassword()" class="btn btn-red btn-lg btn-block" type="button">Ganti Password</button>
-                    </div>
-                    <p class="mb-4 pb-lg-2">Ingin mengubah menggunakan token? <a href="javascript:void(0);" (click)="switchToForgotPassword()">Kembali di sini</a></p>
-                  </form>
-                </div>
+                  </div>
+                  <div class="pt-1 mb-3">
+                    <button (click)="updatePassword()" class="btn btn-red btn-lg btn-block" type="button">Ganti Password</button>
+                    <button (click)="navigateToUserAccount()" class="btn btn-secondary btn-lg" type="button">Cancel</button>
+                  </div>
+                  <p class="mb-4 pb-lg-2"><a routerLink="/forgot-pwd">Lupa Password?</a></p>
+                </form>
               </div>
             </div>
           </div>

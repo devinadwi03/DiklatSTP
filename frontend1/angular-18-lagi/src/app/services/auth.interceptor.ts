@@ -20,7 +20,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
     return next.handle(authReq).pipe(
       catchError((error: HttpErrorResponse) => {
-        const publicRoutes = ['/login', '/register', '/refresh-token', '/resend-verify-email', '/activation','logout'];
+        const publicRoutes = ['/login', '/register', '/refresh-token', '/resend-verify-email', '/activation','/logout', '/forgot-pwd', '/change-pwd-forgot', '/reset-password'];
         // Check if the request URL is not a public route
         if (error.status === 401 && !publicRoutes.some(route => req.url.includes(route))) {
           // Handle unauthorized requests

@@ -181,7 +181,7 @@ export const updateUser = async (req, res) => {
 
 // Fungsi untuk memperbarui password pengguna
 export const updatePassword = async (req, res) => {
-    const { id } = req.params;
+    const id = req.user.userId;
     const { currentPassword, newPassword, confNewPassword } = req.body;
 
     // Validasi data

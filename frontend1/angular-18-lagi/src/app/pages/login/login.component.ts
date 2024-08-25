@@ -108,4 +108,8 @@ export class LoginComponent {
       );
     }
   }  
+  // arah ke page forget password
+  onForgotPassword() {
+    this.router.navigate(['/forgot-pwd']);
+  }
 }

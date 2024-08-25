@@ -1,0 +1,33 @@
+<section class="vh-100" style="background-color: #BA181B;">
+  <div class="container h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col col-xl-10">
+              <div class="card">
+                  <div class="row g-2">
+                      <div class="col-12 d-flex align-items-center">
+                          <div class="card-body p-4 p-lg-5 text-black">
+                              <h3 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Ubah Password</h3>
+                              <form (ngSubmit)="resetPass()">
+                                  <div class="form-outline mb-3">
+                                      <label class="form-label" for="newPassword">Password Baru</label>
+                                      <input [(ngModel)]="forgotPassword.newPassword" name="newPassword" type="password" id="newPassword" class="form-control form-control-lg" required/>
+                                  </div>
+                                  <div class="form-outline mb-3">
+                                      <label class="form-label" for="confirmNewPassword">Konfirmasi Password Baru</label>
+                                      <input [(ngModel)]="forgotPassword.confirmNewPassword" name="confirmNewPassword" type="password" id="confirmNewPassword" class="form-control form-control-lg" required/>
+                                  </div>
+                                  <div class="pt-1 mb-3">
+                                      <button class="btn btn-red btn-lg btn-danger" type="submit">Reset Password</button>
+                                  </div>
+                                  <div *ngIf="resetMessage" class="alert alert-info" role="alert">
+                                      {{ resetMessage }}
+                                  </div>
+                              </form>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>

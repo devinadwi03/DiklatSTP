@@ -2,6 +2,8 @@
   "routes": [
     "/",
     "/account-list",
+    "/change-pwd",
+    "/forgot-pwd",
     "/login",
     "/register",
     "/templateFormValidation",

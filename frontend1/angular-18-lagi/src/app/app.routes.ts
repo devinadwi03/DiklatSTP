@@ -7,6 +7,9 @@ import { UserListComponent } from './pages/user-list/user-list.component';
 import { UserDataComponent } from './pages/user-data/user-data.component';
 import { AccountListComponent } from './pages/account-list/account-list.component';
 import { UserAccountComponent } from './pages/user-account/user-account.component';
+import { ChangePwdComponent } from './pages/change-pwd/change-pwd.component';
+import { ForgotPwdComponent } from './pages/forgot-pwd/forgot-pwd.component';
+import { ChangePwdForgotComponent } from './pages/change-pwd-forgot/change-pwd-forgot.component';
 import { ActivationComponent } from './activation/activation.component';
 import { AuthGuard } from './guards/auth.guards'; // Sesuaikan path sesuai kebutuhan
 import { RoleGuard } from './guards/role.guard';
@@ -62,6 +65,10 @@ export const routes: Routes = [
         component: UserAccountComponent
       },
       {
+        path: 'change-pwd',
+        component: ChangePwdComponent
+      },
+      {
         path: '**',
         redirectTo: 'dashboard' // Rute wildcard untuk menangani rute yang tidak ditemukan
       }
@@ -71,5 +78,13 @@ export const routes: Routes = [
   {
     path: 'activation/:token',
     component: ActivationComponent
+  },
+  {
+    path: 'forgot-pwd',
+    component: ForgotPwdComponent
+  },
+  {
+    path: 'reset-password/:token',
+    component: ChangePwdForgotComponent
   }
 ];
