@@ -1,5 +1,5 @@
 (DONE) * Biar dirinya bisa delete pendaftaran
-* Fungsi Logout setelah 30 menit tidak ada aktivitas
+(HARUSNYA DONE) * Fungsi Logout setelah 30 menit tidak ada aktivitas
 (DONE) * Integrasi navbar
 (DONE) * Page Menu betulkan
 (DONE) * Tambahkan aturan di kolom input reset-password
