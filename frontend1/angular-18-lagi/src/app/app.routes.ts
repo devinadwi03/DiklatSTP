@@ -14,6 +14,8 @@ import { ActivationComponent } from './activation/activation.component';
 import { AuthGuard } from './guards/auth.guards'; // Sesuaikan path sesuai kebutuhan
 import { RoleGuard } from './guards/role.guard';
 import { RegistrationGuard } from './guards/registration.guard';
+import { AddAdminComponent } from './pages/add-admin/add-admin.component';
+import { MenuComponent } from './pages/menu/menu.component';
 
 export const routes: Routes = [
   {
@@ -61,12 +63,22 @@ export const routes: Routes = [
         data: { expectedRole: 'admin' } // Hanya admin yang bisa lihat semua pendaftar
       },
       {
+        path: 'add-admin',
+        component: AddAdminComponent,
+        canActivate: [RoleGuard],
+        data: { expectedRole: 'admin' } // Hanya admin yang bisa lihat semua pendaftar
+      },
+      {
         path: 'user-account',
         component: UserAccountComponent
       },
       {
         path: 'change-pwd',
         component: ChangePwdComponent
+      },
+      {
+        path: 'menu',
+        component: MenuComponent
       },
       {
         path: '**',

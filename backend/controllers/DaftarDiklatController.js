@@ -221,8 +221,7 @@ export const deleteRegistrasi = async (req, res) => {
         // Ambil data registrasi berdasarkan id dan id_user
         const registrasi = await DaftarDiklat.findOne({
             where: {
-                id: req.params.id,
-                id_user: req.user.userId,
+                id: req.params.id
             },
         });
 
@@ -246,8 +245,7 @@ export const deleteRegistrasi = async (req, res) => {
         // Hapus data registrasi di database
         const deleted = await DaftarDiklat.destroy({
             where: {
-                id: req.params.id,
-                id_user: req.user.userId
+                id: req.params.id
             }
         });
 

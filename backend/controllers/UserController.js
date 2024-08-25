@@ -455,3 +455,50 @@ export const resetPassword = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
+
+export const addAdmin = async (req, res) => {
+    const { username, email, password, confPassword, first_name, last_name } = req.body;
+
+    // Validasi data
+    const { message, data } = await dataValid(
+        {
+            username: "required",
+            email: "required,isEmail",
+            password: "required,isStrongPassword",
+            confPassword: "required",
+            first_name: "required",
+            last_name: "required"
+        },
+        req.body
+    );
+
+    if (message.length > 0) {
+        return res.status(400).json({ msg: message.join(", ") });
+    }
+
+    if (password !== confPassword) {
+        return res.status(400).json({ msg: "Password dan Confirm Password tidak cocok!" });
+    }
+
+    try {
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+
+        const newAdmin = await User.create({
+            username,
+            email,
+            password: hashedPassword,
+            first_name,
+            last_name,
+            role: 'admin'  // Set role sebagai admin
+        });
+
+        const verificationToken = generateEmailToken(newAdmin);
+        await sendMail(email, verificationToken);
+
+        res.status(201).json({ msg: "Admin berhasil dibuat. Silakan periksa email Anda untuk verifikasi akun" });
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).json({ error: error.message });
+    }
+};

@@ -1,7 +1,10 @@
 (DONE) * Biar dirinya bisa delete pendaftaran
 * Fungsi Logout setelah 30 menit tidak ada aktivitas
 * Integrasi navbar
-* Tambahkan aturan di kolom input reset-password
+* Page Menu betulkan
+(DONE) * Tambahkan aturan di kolom input reset-password
+(DONE) * Menambah fungsi add admin oleh admin
+(DONE) * Admin hanya bisa hapus data baik data diklat maupun akun
 (SEMENTARA DONE) * Mengarahkan user ke form daftar diklat setelah login (sementara)
 (SEMENTARA DONE) * Mengarahkan admin ke list pendaftar diklat 
 (DONE) * Integrasi front&back tampil data akun pemilik

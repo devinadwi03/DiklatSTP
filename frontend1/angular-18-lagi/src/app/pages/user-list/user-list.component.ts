@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { saveAs } from 'file-saver';
+import { Router } from '@angular/router';
 import { DiklatService } from '../../services/diklat.service';
 import { Workbook } from 'exceljs';
 
@@ -35,6 +36,7 @@ export interface User {
   imports: [CommonModule, HttpClientModule]
 })
 export class UserListComponent implements OnInit {
+  private router = inject(Router);
   users: User[] = [];
 
   constructor(private diklatService: DiklatService) {}
@@ -46,16 +48,21 @@ export class UserListComponent implements OnInit {
     });
   }
 
-  addUser() {
-    // Implementasi untuk menambah pengguna
-  }
-
-  editUser(userId: number) {
-    // Implementasi untuk mengedit pengguna
-  }
-
-  deleteUser(userId: number) {
-    // Implementasi untuk menghapus pengguna
+  // Menghapus data pendaftar
+  deleteUser(id: number) {
+    if (confirm('Apakah Anda yakin ingin menghapus data ini?')) {
+      this.diklatService.deleteDataDiklat(id).subscribe(
+        (response: any) => {
+          alert(response.msg || 'Data berhasil dihapus');
+          // Optional: navigasi atau pembaruan tampilan setelah penghapusan
+          window.location.reload();
+        },
+        (error) => {
+          alert(error.message || 'Terjadi kesalahan saat menghapus data');
+          console.error('Error saat menghapus data', error);
+        }
+      );
+    }
   }
 
   exportToExcel(): void {

@@ -11,7 +11,8 @@ import {
     forgotPassword,
     resetPassword,
     verifyEmail,
-    resendVerificationEmail
+    resendVerificationEmail,
+    addAdmin
 } from "../controllers/UserController.js";
 import { verifyToken, adminOnly, isUserOrAdmin, verifyLastActive } from '../middleware/auth.js';
 import { refreshToken } from "../services/RefreshToken.js";
@@ -31,7 +32,7 @@ router.get('/getUsers', verifyToken, verifyLastActive, adminOnly, getUsers);
 router.get('/getUserById', verifyToken, verifyLastActive, isUserOrAdmin, getUsersById);
 router.post('/register', createUser);
 router.put('/updateUser', verifyToken, verifyLastActive, isUserOrAdmin, updateUser);
-router.delete('/deleteUser', verifyToken, verifyLastActive, adminOnly, deleteUser);
+router.delete('/deleteUser/:id', verifyToken, verifyLastActive, adminOnly, deleteUser);
 router.put('/update-password', verifyToken, verifyLastActive, isUserOrAdmin, updatePassword);
 router.post('/resend-verification-email', resendVerificationEmail); // Endpoint baru
 
@@ -42,6 +43,8 @@ router.post('/forgot-password', forgotPassword);
 router.post('/reset-password/:token', resetPassword);
 
 router.post('/refresh-token', refreshToken);
+
+router.post('/addAdmin', verifyToken, adminOnly, addAdmin);
 
 router.get('/activation/:token', verifyEmail);
 

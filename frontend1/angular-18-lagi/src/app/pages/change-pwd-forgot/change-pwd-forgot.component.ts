@@ -1,13 +1,13 @@
-import { Component, inject } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';  // Impor FormsModule
+import { Component, inject } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Router, RouterModule, ActivatedRoute } from '@angular/router';  // Impor Router
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-change-password-forgot',
   standalone: true,
-  imports: [CommonModule, FormsModule],  // Tambahkan FormsModule di sini
+  imports: [CommonModule, FormsModule, RouterModule],  // Tambahkan FormsModule di sini
   styleUrls: ['./change-pwd-forgot.component.css'],
   templateUrl: './change-pwd-forgot.component.html'
 })
@@ -24,6 +24,8 @@ export class ChangePwdForgotComponent {
   token: string | null = null;
   resetMessage: string = ''; // Variable to store message
 
+  passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
   ngOnInit(): void {
     // Mengambil token dari parameter rute
     this.token = this.route.snapshot.paramMap.get('token');
@@ -31,6 +33,17 @@ export class ChangePwdForgotComponent {
 
   resetPass(): void {
     if (this.token) {
+      if (!this.passwordPattern.test(this.forgotPassword.newPassword)) {
+        this.resetMessage = 'Password harus memiliki setidaknya 8 karakter, 1 huruf besar, 1 huruf kecil, 1 angka, dan 1 simbol.';
+        alert(this.resetMessage);
+        return;
+      }
+      if (this.forgotPassword.newPassword !== this.forgotPassword.confirmNewPassword) {
+        this.resetMessage = 'Password konfirmasi tidak cocok.';
+        alert(this.resetMessage);
+        return;
+      }
+
       this.http.post(`${this.apiUrl}/reset-password/${this.token}`, {
         newPassword: this.forgotPassword.newPassword,
         confNewPassword: this.forgotPassword.confirmNewPassword

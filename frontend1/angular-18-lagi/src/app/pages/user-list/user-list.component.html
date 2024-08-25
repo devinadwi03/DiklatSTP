@@ -2,7 +2,6 @@
   <div class="d-flex justify-content-between mb-3">
     <h2>User yang telah mendaftar Diklat</h2>
     <div>
-      <button class="btn btn-primary-custom me-2" (click)="addUser()">Add User</button>
       <button class="btn btn-success" (click)="exportToExcel()">Download Excel</button>
     </div>
   </div>
@@ -53,8 +52,7 @@
           <td>{{ user.tau_diklat_dari }}</td>
           <td>{{ user.tau_diklat_dari_lainnya }}</td>
           <td>
-            <button class="btn btn-warning btn-sm me-2" (click)="editUser(user.id)">Edit</button>
-            <button class="btn btn-danger-custom btn-sm" *ngIf="user.level == 2" (click)="deleteUser(user.id)">Delete</button>
+            <button class="btn btn-danger-custom btn-sm" (click)="deleteUser(user.id)">Delete</button>
           </td>
         </tr>
       </tbody>

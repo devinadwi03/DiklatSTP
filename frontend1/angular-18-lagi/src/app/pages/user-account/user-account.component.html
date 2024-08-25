@@ -59,13 +59,14 @@
                             type="button">Edit</button>
                         <button *ngIf="isEditing" (click)="cancelEditing()" class="btn btn-secondary me-2"
                             type="button">Cancel</button>
-                        <button *ngIf="isEditing" (click)="onUpdate()" class="btn btn-success"
+                        <button *ngIf="isEditing" (click)="onUpdate()" class="btn btn-success me-2"
                             type="button">Save</button>
 
                         <!-- Tombol Change Password -->
                         <button (click)="navigateToChangePassword()" class="btn btn-warning" type="button">Change
                             Password</button>
                     </div>
+
                 </div>
             </div>
         </div>

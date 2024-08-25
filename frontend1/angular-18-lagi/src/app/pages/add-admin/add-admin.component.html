@@ -1,0 +1,151 @@
+<div class="container mt-5">
+    <div class="card shadow-lg">
+      <div class="card-header text-center bg-danger text-white">
+        <h3>Tambah Admin Baru</h3>
+      </div>
+      <div class="card-body p-4">
+        <form [formGroup]="adminForm" (ngSubmit)="addAdmin()">
+          <!-- Username Field -->
+          <div class="form-group mb-3">
+            <label class="form-label" for="username">Username</label>
+            <input
+              formControlName="username"
+              type="text"
+              id="username"
+              class="form-control"
+              placeholder="Masukkan Username"
+              required
+            />
+            <div
+              *ngIf="
+                adminForm.get('username')?.invalid &&
+                adminForm.get('username')?.touched
+              "
+              class="text-danger small mt-1"
+            >
+              Username diperlukan.
+            </div>
+          </div>
+  
+          <!-- Email Field -->
+          <div class="form-group mb-3">
+            <label class="form-label" for="email">Email</label>
+            <input
+              formControlName="email"
+              type="email"
+              id="email"
+              class="form-control"
+              placeholder="Masukkan Email"
+              required
+            />
+            <div
+              *ngIf="
+                adminForm.get('email')?.invalid &&
+                adminForm.get('email')?.touched
+              "
+              class="text-danger small mt-1"
+            >
+              Email yang valid diperlukan.
+            </div>
+          </div>
+  
+          <!-- Password Field -->
+          <div class="form-group mb-3">
+            <label class="form-label" for="password">Password</label>
+            <input
+              formControlName="password"
+              type="password"
+              id="password"
+              class="form-control"
+              placeholder="Masukkan Password"
+              required
+            />
+            <div
+              *ngIf="
+                adminForm.get('password')?.touched &&
+                !passwordPattern.test(adminForm.get('password')?.value)
+              "
+              class="text-danger small mt-1"
+            >
+              Password harus memiliki setidaknya 8 karakter, 1 huruf besar, 1
+              huruf kecil, 1 angka, dan 1 simbol.
+            </div>
+          </div>
+  
+          <!-- Confirm Password Field -->
+          <div class="form-group mb-3">
+            <label class="form-label" for="confPassword">Konfirmasi Password</label>
+            <input
+              formControlName="confPassword"
+              type="password"
+              id="confPassword"
+              class="form-control"
+              placeholder="Konfirmasi Password"
+              required
+            />
+            <div
+              *ngIf="
+                adminForm.errors?.['passwordMismatch'] &&
+                adminForm.get('confPassword')?.touched
+              "
+              class="text-danger small mt-1"
+            >
+              Password dan konfirmasi password tidak cocok.
+            </div>
+          </div>
+  
+          <!-- First Name Field -->
+          <div class="form-group mb-3">
+            <label class="form-label" for="first_name">Nama Depan</label>
+            <input
+              formControlName="first_name"
+              type="text"
+              id="first_name"
+              class="form-control"
+              placeholder="Masukkan Nama Depan"
+              required
+            />
+            <div
+              *ngIf="
+                adminForm.get('first_name')?.invalid &&
+                adminForm.get('first_name')?.touched
+              "
+              class="text-danger small mt-1"
+            >
+              Nama depan diperlukan.
+            </div>
+          </div>
+  
+          <!-- Last Name Field -->
+          <div class="form-group mb-3">
+            <label class="form-label" for="last_name">Nama Belakang</label>
+            <input
+              formControlName="last_name"
+              type="text"
+              id="last_name"
+              class="form-control"
+              placeholder="Masukkan Nama Belakang"
+              required
+            />
+            <div
+              *ngIf="
+                adminForm.get('last_name')?.invalid &&
+                adminForm.get('last_name')?.touched
+              "
+              class="text-danger small mt-1"
+            >
+              Nama belakang diperlukan.
+            </div>
+          </div>
+  
+          <!-- Submit Button -->
+          <div class="text-center d-flex justify-content-center">
+            <button class="btn btn-danger btn-lg mx-2" type="submit">Tambah Admin</button>
+            <button class="btn btn-secondary btn-lg mx-2" type="button" (click)="navigateToAccountList()">Cancel</button>
+          </div>          
+          
+        </form>
+      </div>
+    </div>
+  </div>
+  

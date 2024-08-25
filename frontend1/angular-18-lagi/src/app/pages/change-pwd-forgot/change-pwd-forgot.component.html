@@ -11,10 +11,16 @@
                                   <div class="form-outline mb-3">
                                       <label class="form-label" for="newPassword">Password Baru</label>
                                       <input [(ngModel)]="forgotPassword.newPassword" name="newPassword" type="password" id="newPassword" class="form-control form-control-lg" required/>
+                                      <div *ngIf="forgotPassword.newPassword && !passwordPattern.test(forgotPassword.newPassword)" class="text-danger mt-1">
+                                        <span class="small-text">Password harus memiliki setidaknya 8 karakter, 1 huruf besar, 1 huruf kecil, 1 angka, dan 1 simbol.</span>
+                                      </div>
                                   </div>
                                   <div class="form-outline mb-3">
                                       <label class="form-label" for="confirmNewPassword">Konfirmasi Password Baru</label>
                                       <input [(ngModel)]="forgotPassword.confirmNewPassword" name="confirmNewPassword" type="password" id="confirmNewPassword" class="form-control form-control-lg" required/>
+                                      <div *ngIf="forgotPassword.confirmNewPassword && forgotPassword.confirmNewPassword !== forgotPassword.newPassword" class="text-danger mt-1">
+                                        <span class="small-text">Password konfirmasi tidak cocok.</span>
+                                      </div>
                                   </div>
                                   <div class="pt-1 mb-3">
                                       <button class="btn btn-red btn-lg btn-danger" type="submit">Reset Password</button>

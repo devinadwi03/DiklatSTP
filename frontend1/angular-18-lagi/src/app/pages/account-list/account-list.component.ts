@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { saveAs } from 'file-saver';
+import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service'; // Import AuthService
+import { isPlatformBrowser } from '@angular/common';
 import { Workbook } from 'exceljs';
 
 export interface User {
@@ -23,8 +25,12 @@ export interface User {
 })
 export class AccountListComponent implements OnInit {
   users: User[] = [];
+  private apiUrl = 'http://localhost:5000'; // URL backend
 
-  constructor(private authService: AuthService) {} // Inject AuthService
+  constructor(private authService: AuthService, 
+    private http: HttpClient, 
+    private router: Router, 
+    @Inject(PLATFORM_ID) private platformId: Object) {} // Inject AuthService
 
   ngOnInit(): void {
     this.authService.getUsers().subscribe((data: User[]) => {
@@ -33,16 +39,28 @@ export class AccountListComponent implements OnInit {
     });
   }
 
-  addUser() {
-    // Implementasi untuk menambah pengguna
+  addAdmin() {
+    this.router.navigate(['/add-admin']);
   }
 
-  editUser(userId: number) {
-    // Implementasi untuk mengedit pengguna
-  }
-
-  deleteUser(userId: number) {
-    // Implementasi untuk menghapus pengguna
+  // Fungsi untuk menghapus pengguna
+  deleteUser(id: number) {
+    if (confirm('Apakah Anda yakin ingin menghapus pengguna ini?')) {
+      if (isPlatformBrowser(this.platformId)) {
+        this.http.delete(`${this.apiUrl}/deleteUser/${id}`, { withCredentials: true })
+          .subscribe(
+            (response: any) => {
+              alert(response.msg || 'Pengguna berhasil dihapus');
+              // Refresh halaman untuk memperbarui tampilan
+              window.location.reload(); 
+            },
+            (error) => {
+              alert(error.error.msg || 'Terjadi kesalahan saat menghapus pengguna');
+              console.error('Error saat menghapus pengguna:', error);
+            }
+          );
+      }
+    }
   }
 
   exportToExcel(): void {

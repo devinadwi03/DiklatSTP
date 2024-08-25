@@ -2,7 +2,7 @@
   <div class="d-flex justify-content-between mb-3">
     <h2>Daftar Akun</h2>
     <div>
-      <button class="btn btn-primary-custom me-2" (click)="addUser()">Add User</button>
+      <button class="btn btn-primary-custom me-2" (click)="addAdmin()">Add Admin</button>
       <button class="btn btn-success" (click)="exportToExcel()">Download Excel</button>
     </div>
   </div>
@@ -29,8 +29,7 @@
           <td>{{ user.last_name }}</td>
           <td>{{ user.role }}</td>
           <td>
-            <button class="btn btn-warning btn-sm me-2" (click)="editUser(user.id)">Edit</button>
-            <button class="btn btn-danger btn-sm" *ngIf="user.role !== 'Admin'" (click)="deleteUser(user.id)">Delete</button>
+            <button class="btn btn-danger btn-sm" (click)="deleteUser(user.id)">Delete</button>
           </td>
         </tr>
       </tbody>

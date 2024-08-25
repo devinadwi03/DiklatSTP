@@ -46,7 +46,7 @@ const User = db.define('users', {
     },
     role: {
         type: DataTypes.STRING,
-        defaultValue: 'user'
+        allowNull: false
     },
     status: {
         type: DataTypes.BOOLEAN,
