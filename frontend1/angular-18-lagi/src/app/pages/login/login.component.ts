@@ -90,7 +90,7 @@ export class LoginComponent {
                 const returnUrlAdmin = this.route.snapshot.queryParams['returnUrl'] || 'account-list';
                 this.router.navigateByUrl(returnUrlAdmin);
               } else if (userRole === 'user') {
-                const returnUrlUser = this.route.snapshot.queryParams['returnUrl'] || 'templateFormValidation';
+                const returnUrlUser = this.route.snapshot.queryParams['returnUrl'] || 'home';
                 this.router.navigateByUrl(returnUrlUser);
               } else {
                 alert('Role tidak dikenal');

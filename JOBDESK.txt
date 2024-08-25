@@ -1,7 +1,7 @@
 (DONE) * Biar dirinya bisa delete pendaftaran
 * Fungsi Logout setelah 30 menit tidak ada aktivitas
 * Integrasi navbar
-* Page Menu betulkan
+(DONE) * Page Menu betulkan
 (DONE) * Tambahkan aturan di kolom input reset-password
 (DONE) * Menambah fungsi add admin oleh admin
 (DONE) * Admin hanya bisa hapus data baik data diklat maupun akun

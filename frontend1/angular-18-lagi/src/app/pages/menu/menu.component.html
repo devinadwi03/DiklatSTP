@@ -9,9 +9,9 @@
               <div class="card-body p-4 p-lg-5 text-black">
                 <h2>Selamat Datang, {{ username }}!</h2>
 
-                <p *ngIf="isRegistered; else notRegistered">Anda telah melakukan register.</p>
+                <p *ngIf="isRegistered; else notRegistered">Anda telah melakukan pendaftaran diklat.</p>
                 <ng-template #notRegistered>
-                  <p>Anda belum melakukan register.</p>
+                  <p>Silakan mendaftar diklat.</p>
                 </ng-template>
               </div>
             </div>
@@ -19,7 +19,7 @@
             <div class="col-md-6 d-flex align-items-center">
               <div class="card-body p-4 p-lg-5 text-black d-flex justify-content-end">
                 <button class="btn btn-primary" (click)="navigateBasedOnRegistration()">
-                  {{ isRegistered ? 'Lihat Data' : 'Register' }}
+                  {{ isRegistered ? 'Lihat Data' : 'Daftar' }}
                 </button>
               </div>
             </div>

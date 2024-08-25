@@ -77,7 +77,7 @@ export const routes: Routes = [
         component: ChangePwdComponent
       },
       {
-        path: 'menu',
+        path: 'home',
         component: MenuComponent
       },
       {
