@@ -1,8 +1,8 @@
-* Biar dirinya bisa delete pendaftaran
+(DONE) * Biar dirinya bisa delete pendaftaran
 * Fungsi Logout setelah 30 menit tidak ada aktivitas
 * Integrasi navbar
-* Mengarahkan user ke form daftar diklat setelah login (sementara)
-* Mengarahkan admin ke list pendaftar diklat 
+(SEMENTARA DONE) * Mengarahkan user ke form daftar diklat setelah login (sementara)
+(SEMENTARA DONE) * Mengarahkan admin ke list pendaftar diklat 
 * Integrasi front&back tampil data akun pemilik
 * Integrasi front&back edit data akun pemilik
 * Integrasi front&back ganti password manual

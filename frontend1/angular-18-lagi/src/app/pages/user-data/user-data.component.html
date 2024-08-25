@@ -248,6 +248,8 @@
                             <!-- Submit Button -->
                             <div class="form-group mt-3">
                                 <button type="submit" class="btn btn-primary">Simpan</button>
+                                <button type="button" *ngIf="user" class="btn btn-danger" (click)="cancelRegistration()">Batalkan Pendaftaran</button>
+
                             </div>
                         </div>
                     </div>

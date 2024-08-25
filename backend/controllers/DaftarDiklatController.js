@@ -218,17 +218,45 @@ export const updateRegistrasi = async (req, res) => {
 
 export const deleteRegistrasi = async (req, res) => {
     try {
+        // Ambil data registrasi berdasarkan id dan id_user
+        const registrasi = await DaftarDiklat.findOne({
+            where: {
+                id: req.params.id,
+                id_user: req.user.userId,
+            },
+        });
+
+        // Jika registrasi tidak ditemukan, kirim respon 404
+        if (!registrasi) {
+            console.error("Registrasi tidak ditemukan");
+            return res.status(404).json({ msg: "Registrasi tidak ditemukan" });
+        }
+
+        // Hapus file dari Google Drive jika ada fileId
+        if (registrasi.fileId) {
+            try {
+                await deleteFileFromGoogleDrive(registrasi.fileId);
+                console.log('File di Google Drive berhasil dihapus');
+            } catch (error) {
+                console.error(`Gagal menghapus file di Google Drive: ${error.message}`);
+                return res.status(500).json({ msg: "Gagal menghapus file di Google Drive" });
+            }
+        }
+
+        // Hapus data registrasi di database
         const deleted = await DaftarDiklat.destroy({
             where: {
                 id: req.params.id,
                 id_user: req.user.userId
             }
         });
+
         if (deleted === 0) {
             console.error("Registrasi tidak ditemukan");
             return res.status(404).json({ msg: "Registrasi tidak ditemukan" });
         }
-        res.status(200).json({ msg: "Registrasi dibatalkan" });
+
+        res.status(200).json({ msg: "Registrasi dibatalkan dan file dihapus" });
     } catch (error) {
         console.error(`Error deleting registrasi: ${error.message}`);
         res.status(500).json({ error: error.message });

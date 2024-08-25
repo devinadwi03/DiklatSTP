@@ -48,7 +48,7 @@ export const routes: Routes = [
       {
         path: 'user-data',
         component: UserDataComponent,
-        canActivate: [RoleGuard],
+        canActivate: [RoleGuard, RegistrationGuard],
         data: { expectedRole: 'user' } // Hanya user yang bisa update data
       },
       {

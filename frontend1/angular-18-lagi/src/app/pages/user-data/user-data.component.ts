@@ -2,6 +2,7 @@ import { Component, Input, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { FormsModule } from '@angular/forms'; // Impor FormsModule di sini
 import { CommonModule } from '@angular/common';
 import { isPlatformBrowser } from '@angular/common';
+import { Router } from '@angular/router';
 import { DiklatService } from '../../services/diklat.service'; // Sesuaikan dengan path yang benar
 
 export interface User1 {
@@ -44,7 +45,8 @@ export class UserDataComponent implements OnInit {
 
   constructor(
     private diklatService: DiklatService,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -107,5 +109,27 @@ export class UserDataComponent implements OnInit {
       alert('Form tidak valid. Periksa kembali data yang diisi.');
     }
   }
+
+  cancelRegistration(): void {
+    if (this.user) {
+      const confirmation = confirm('Apakah Anda yakin ingin membatalkan pendaftaran?');
+      if (confirmation) {
+        this.diklatService.deleteDataDiklat(this.user.id).subscribe(
+          response => {
+            console.log('Pendaftaran berhasil dibatalkan:', response);
+            alert('Pendaftaran berhasil dibatalkan.'); // Tampilkan pesan sukses
+            this.user = null; // Reset data pengguna setelah pembatalan
+            // Navigasi ke templateFormValidation setelah pembatalan
+            this.router.navigate(['templateFormValidation']);
+          },
+          error => {
+            console.error('Error cancelling registration:', error);
+            alert('Terjadi kesalahan saat membatalkan pendaftaran.');
+          }
+        );
+      }
+    }
+  }
+  
 }
 

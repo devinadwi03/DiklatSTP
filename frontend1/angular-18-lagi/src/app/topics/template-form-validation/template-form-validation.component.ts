@@ -73,7 +73,7 @@ export class TemplateFormValidationComponent {
       this.diklatService.daftarDiklat(this.userObj).subscribe(
         response => {
           alert('Data berhasil disimpan!');
-          // Lakukan tindakan tambahan jika diperlukan
+          this.router.navigate(['/user-data']); 
         },
         error => {
           alert('Terjadi kesalahan, harap coba lagi.');

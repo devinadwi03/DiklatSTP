@@ -74,6 +74,20 @@ export class DiklatService {
     );
   }
   
+  deleteDataDiklat(id: number): Observable<any> {
+    if (isPlatformBrowser(this.platformId)) {
+      return this.http.delete<any>(`${this.apiUrl}/delete-daftar-diklat/${id}`, {
+        withCredentials: true
+      }).pipe(
+        catchError((error: HttpErrorResponse) => {
+          console.error('Error deleting user registration:', error);
+          return throwError(() => new Error(`Error: ${error.status} - ${error.message}`));
+        })
+      );
+    } else {
+      return of(null);
+    }
+  }
   
   
 }

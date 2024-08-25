@@ -16,10 +16,18 @@ export class RegistrationGuard implements CanActivate {
   ): Observable<boolean> {
     return this.authService.getUserRegistrationStatus().pipe(
       map(isRegistered => {
-        if (isRegistered) {
-          // Jika user sudah mendaftar, arahkan ke halaman dashboard
+        if (isRegistered && next.routeConfig?.path === 'user-data') {
+          // Jika user sudah mendaftar dan mencoba mengakses halaman 'user-data', biarkan
+          return true;
+        } else if (isRegistered) {
+          // Jika user sudah mendaftar tapi mencoba mengakses halaman pendaftaran, arahkan ke halaman 'user-data'
           alert('Anda sudah mendaftar!');
           this.router.navigate(['user-data']);
+          return false;
+        } else if (!isRegistered && next.routeConfig?.path === 'user-data') {
+          // Jika user belum mendaftar dan mencoba mengakses halaman 'user-data', arahkan ke halaman pendaftaran
+          alert('Anda belum mendaftar! Silakan daftar terlebih dahulu.');
+          this.router.navigate(['templateFormValidation']);
           return false;
         }
         return true;

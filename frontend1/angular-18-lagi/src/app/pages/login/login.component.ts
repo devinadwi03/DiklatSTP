@@ -81,10 +81,22 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.value).subscribe(
         response => {
-          if (response) { // Pastikan response tidak null
+          if (response) {
             alert('Login Berhasil!');
-            const returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'templateFormValidation';
-            this.router.navigateByUrl(returnUrl);
+            
+            // Ambil peran pengguna dari AuthService sebagai Observable
+            this.authService.getUserRole().subscribe(userRole => {
+              if (userRole === 'admin') {
+                const returnUrlAdmin = this.route.snapshot.queryParams['returnUrl'] || 'account-list';
+                this.router.navigateByUrl(returnUrlAdmin);
+              } else if (userRole === 'user') {
+                const returnUrlUser = this.route.snapshot.queryParams['returnUrl'] || 'templateFormValidation';
+                this.router.navigateByUrl(returnUrlUser);
+              } else {
+                alert('Role tidak dikenal');
+              }
+            });
+  
           } else {
             alert('Username atau password salah');
           }
@@ -95,5 +107,5 @@ export class LoginComponent {
         }
       );
     }
-  }
+  }  
 }
