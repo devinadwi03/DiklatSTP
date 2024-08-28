@@ -17,3 +17,21 @@
     z-index: 2; /* Z-index lebih tinggi dari radius */
     padding: 20px; 
 }
+
+.background-wrapper {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #BA181B; /* Warna background tetap */
+  z-index: -1; /* Letakkan di belakang konten */
+}
+
+.content-section {
+  position: relative; /* Relatif terhadap wrapper */
+  padding: 20px; /* Padding untuk konten */
+  color: white; /* Warna teks */
+  z-index: 1; /* Letakkan di atas background */
+  overflow-y: auto; /* Aktifkan scroll untuk konten jika diperlukan */
+}
+
